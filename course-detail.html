@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Course Detail - EduLearn</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <div class="logo">EduLearn</div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="courses.html">Courses</a>
+      <a href="progress.html">My Progress</a>
+    </nav>
+  </header>
+
+  <section class="course-detail">
+    <h2>Web Development Basics</h2>
+    <div class="video-container">
+      <iframe width="560" height="315" 
+        src="https://www.youtube.com/embed/dD2EISBDjWM" 
+        title="YouTube video" frameborder="0" allowfullscreen></iframe>
+    </div>
+    <div class="progress-section">
+      <p>Your Progress:</p>
+      <div class="progress-bar">
+        <div id="progress" style="width: 40%"></div>
+      </div>
+      <button id="updateProgress" class="btn">Mark Lesson Complete</button>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2025 EduLearn</p>
+  </footer>
+  <script src="script.js"></script>
+</body>
+</html>
