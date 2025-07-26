@@ -12,31 +12,38 @@
     <nav id="nav-menu">
       <a href="index.html">Home</a>
       <a href="courses.html">Courses</a>
-      <a href="progress.html">My Progress</a>
+      <a href="progress.html">Progress</a>
+      <a href="certificates.html">Certificates</a>
+      <a href="profile.html">Profile</a>
+      <a href="settings.html">Settings</a>
     </nav>
     <div class="hamburger" id="hamburger">☰</div>
+    <button id="themeToggle" class="btn small-btn">🌓</button>
   </header>
 
   <section class="course-detail fade-in">
-    <h2>Web Development Basics</h2>
+    <h2 id="courseTitle">Course Title</h2>
+    <img id="courseImage" class="detail-img" src="" alt="Course Image">
+    <p id="courseSummary">Course summary will appear here based on selection.</p>
+
     <div class="video-container">
-      <iframe width="560" height="315" 
-        src="https://www.youtube.com/embed/dD2EISBDjWM" 
-        title="YouTube video" frameborder="0" allowfullscreen></iframe>
+      <iframe id="courseVideo" width="560" height="315" frameborder="0" allowfullscreen></iframe>
     </div>
+
     <div class="progress-section">
       <p>Your Progress:</p>
       <div class="progress-bar">
-        <div id="progress" style="width: 40%"></div>
+        <div id="progress" style="width: 20%"></div>
       </div>
       <button id="updateProgress" class="btn">Mark Lesson Complete</button>
     </div>
   </section>
 
   <footer>
-    <p>© 2025 EduLearn | Developed by 
+    <div class="developer-credit">
+      Developed by 
       <a href="https://www.linkedin.com/in/tanishq-agrawal-91a505335?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank">Tanishq Agrawal</a>
-    </p>
+    </div>
   </footer>
 
   <script src="script.js"></script>
