@@ -1,61 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Courses - EduLearn</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <header>
-    <div class="logo">EduLearn</div>
-    <nav id="nav-menu">
-      <a href="index.html">Home</a>
-      <a href="courses.html" class="active">Courses</a>
-      <a href="progress.html">Progress</a>
-      <a href="certificates.html">Certificates</a>
-      <a href="profile.html">Profile</a>
-      <a href="settings.html">Settings</a>
-    </nav>
-    <div class="hamburger" id="hamburger">☰</div>
-    <button id="themeToggle" class="btn small-btn">🌓</button>
+  <!-- Sidebar -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <h2>EduLearn</h2>
+      <span id="closeSidebar">&times;</span>
+    </div>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="courses.html" class="active">Courses</a></li>
+      <li><a href="dashboard.html">Dashboard</a></li>
+      <li><a href="certificates.html">Certificates</a></li>
+      <li><a href="settings.html">Settings</a></li>
+      <li><a href="login.html" id="logoutLink">Logout</a></li>
+    </ul>
+  </aside>
+
+  <!-- Header -->
+  <header class="topbar">
+    <button id="menuBtn" class="menu-btn">☰</button>
+    <h1>All Courses</h1>
+    <button id="themeToggle" class="theme-btn">🌙</button>
   </header>
 
+  <!-- Course List -->
   <section class="course-list fade-in">
-    <h2>Available Courses</h2>
-    <div class="courses">
-      <div class="course-card hover-up">
-        <img src="images/webdev.jpg" alt="Web Dev">
-        <h3>Web Development Basics</h3>
-        <p>Learn HTML, CSS, and JS with real projects.</p>
-        <a href="course-detail.html?course=webdev" class="btn">View Details</a>
+    <div class="course-grid">
+      <div class="course-card hover-zoom">
+        <img src="images/webdev.jpg" alt="Web Dev" />
+        <h4>Web Development Basics</h4>
+        <p>Build websites from scratch using HTML, CSS, JS.</p>
+        <a href="course-detail.html?course=webdev" class="btn small">View</a>
       </div>
-      <div class="course-card hover-up">
-        <img src="images/python.jpg" alt="Python">
-        <h3>Python for Beginners</h3>
-        <p>Master Python programming from scratch.</p>
-        <a href="course-detail.html?course=python" class="btn">View Details</a>
+      <div class="course-card hover-zoom">
+        <img src="images/python.jpg" alt="Python" />
+        <h4>Python Programming</h4>
+        <p>Master Python fundamentals with hands-on projects.</p>
+        <a href="course-detail.html?course=python" class="btn small">View</a>
       </div>
-      <div class="course-card hover-up">
-        <img src="images/datasci.jpg" alt="Data Science">
-        <h3>Data Science Fundamentals</h3>
+      <div class="course-card hover-zoom">
+        <img src="images/datasci.jpg" alt="Data Science" />
+        <h4>Data Science Fundamentals</h4>
         <p>Learn data analysis, visualization, and ML basics.</p>
-        <a href="course-detail.html?course=datasci" class="btn">View Details</a>
+        <a href="course-detail.html?course=datasci" class="btn small">View</a>
       </div>
-      <div class="course-card hover-up">
-        <img src="images/uiux.jpg" alt="UI UX">
-        <h3>UI/UX Design Essentials</h3>
-        <p>Create user-friendly interfaces and experiences.</p>
-        <a href="course-detail.html?course=uiux" class="btn">View Details</a>
+      <div class="course-card hover-zoom">
+        <img src="images/uiux.jpg" alt="UI/UX" />
+        <h4>UI/UX Design</h4>
+        <p>Create user-friendly, beautiful digital experiences.</p>
+        <a href="course-detail.html?course=uiux" class="btn small">View</a>
       </div>
     </div>
   </section>
 
   <footer>
-    <div class="developer-credit">
-      Developed by 
+    <p>
+      © 2025 EduLearn | Developed by
       <a href="https://www.linkedin.com/in/tanishq-agrawal-91a505335?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank">Tanishq Agrawal</a>
-    </div>
+    </p>
   </footer>
 
   <script src="script.js"></script>
