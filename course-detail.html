@@ -1,51 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Course Detail - EduLearn</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Course Details - EduLearn</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <header>
-    <div class="logo">EduLearn</div>
-    <nav id="nav-menu">
-      <a href="index.html">Home</a>
-      <a href="courses.html">Courses</a>
-      <a href="progress.html">Progress</a>
-      <a href="certificates.html">Certificates</a>
-      <a href="profile.html">Profile</a>
-      <a href="settings.html">Settings</a>
-    </nav>
-    <div class="hamburger" id="hamburger">☰</div>
-    <button id="themeToggle" class="btn small-btn">🌓</button>
+  <!-- Sidebar -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <h2>EduLearn</h2>
+      <span id="closeSidebar">&times;</span>
+    </div>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="courses.html">Courses</a></li>
+      <li><a href="dashboard.html">Dashboard</a></li>
+      <li><a href="certificates.html">Certificates</a></li>
+      <li><a href="settings.html">Settings</a></li>
+      <li><a href="login.html" id="logoutLink">Logout</a></li>
+    </ul>
+  </aside>
+
+  <!-- Header -->
+  <header class="topbar">
+    <button id="menuBtn" class="menu-btn">☰</button>
+    <h1 id="courseTitle">Course Details</h1>
+    <button id="themeToggle" class="theme-btn">🌙</button>
   </header>
 
+  <!-- Course Detail Content -->
   <section class="course-detail fade-in">
-    <h2 id="courseTitle">Course Title</h2>
-    <img id="courseImage" class="detail-img" src="" alt="Course Image">
-    <p id="courseSummary">Course summary will appear here based on selection.</p>
+    <img id="courseImage" class="detail-img" alt="Course Poster" />
+    <p id="courseSummary">Loading course summary...</p>
 
-    <div class="video-container">
-      <iframe id="courseVideo" width="560" height="315" frameborder="0" allowfullscreen></iframe>
-    </div>
-
-    <div class="progress-section">
-      <p>Your Progress:</p>
-      <div class="progress-bar">
-        <div id="progress" style="width: 20%"></div>
-      </div>
-      <button id="updateProgress" class="btn">Mark Lesson Complete</button>
-    </div>
-  </section>
-
-  <footer>
-    <div class="developer-credit">
-      Developed by 
-      <a href="https://www.linkedin.com/in/tanishq-agrawal-91a505335?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank">Tanishq Agrawal</a>
-    </div>
-  </footer>
-
-  <script src="script.js"></script>
-</body>
-</html>
+    <!-- Video Embed -->
+    <div
