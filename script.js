@@ -1,34 +1,81 @@
-document.addEventListener("DOMContentLoaded", () => {
-  const hamburger = document.getElementById("hamburger");
-  const navMenu = document.getElementById("nav-menu");
-  const themeToggle = document.getElementById("themeToggle");
-  const updateBtn = document.getElementById("updateProgress");
-  const progressBar = document.getElementById("progress");
-  const loginForm = document.getElementById("loginForm");
-  const usernameDisplay = document.getElementById("usernameDisplay");
-  const emailDisplay = document.getElementById("emailDisplay");
-  const logoutBtn = document.getElementById("logoutBtn");
+// Sidebar Toggle
+const menuBtn = document.getElementById("menuBtn");
+const sidebar = document.getElementById("sidebar");
+const closeSidebar = document.getElementById("closeSidebar");
 
-  /* Hamburger Menu */
-  if (hamburger) {
-    hamburger.addEventListener("click", () => {
-      navMenu.classList.toggle("active");
-    });
+if (menuBtn && sidebar) {
+  menuBtn.addEventListener("click", () => sidebar.classList.add("active"));
+}
+if (closeSidebar) {
+  closeSidebar.addEventListener("click", () => sidebar.classList.remove("active"));
+}
+
+// Theme Toggle
+const themeToggle = document.getElementById("themeToggle");
+if (themeToggle) {
+  themeToggle.addEventListener("click", () => {
+    document.body.classList.toggle("dark");
+    localStorage.setItem("theme", document.body.classList.contains("dark") ? "dark" : "light");
+  });
+  // Load theme
+  if (localStorage.getItem("theme") === "dark") {
+    document.body.classList.add("dark");
   }
+}
 
-  /* Dark/Light Mode */
-  const savedTheme = localStorage.getItem("theme");
-  if (savedTheme === "dark") document.body.classList.add("dark");
-  if (themeToggle) {
-    themeToggle.addEventListener("click", () => {
-      document.body.classList.toggle("dark");
-      localStorage.setItem("theme", document.body.classList.contains("dark") ? "dark" : "light");
-    });
+// Register Logic
+const registerForm = document.getElementById("registerForm");
+if (registerForm) {
+  registerForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const username = document.getElementById("regUsername").value;
+    const email = document.getElementById("regEmail").value;
+    localStorage.setItem("user", JSON.stringify({ username, email }));
+    window.location.href = "dashboard.html";
+  });
+}
+
+// Login Logic
+const loginForm = document.getElementById("loginForm");
+if (loginForm) {
+  loginForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const username = document.getElementById("username").value;
+    const email = document.getElementById("email").value;
+    const savedUser = JSON.parse(localStorage.getItem("user"));
+    if (savedUser && savedUser.username === username && savedUser.email === email) {
+      window.location.href = "dashboard.html";
+    } else {
+      alert("Invalid credentials. Please register first.");
+    }
+  });
+}
+
+// Show username on dashboard
+const dashUsername = document.getElementById("dashUsername");
+if (dashUsername) {
+  const savedUser = JSON.parse(localStorage.getItem("user"));
+  if (savedUser) {
+    dashUsername.textContent = savedUser.username;
   }
+}
 
-  /* Progress Button */
-  if (updateBtn && progressBar) {
-    updateBtn.addEventListener("click", () => {
-      let width = parseInt(progressBar.style.width) || 0;
-      if (width < 100) {
-        progressBar.style.width = (width + 20) + "
+// Progress Update (for demo)
+const updateProgressBtn = document.getElementById("updateProgress");
+if (updateProgressBtn) {
+  updateProgressBtn.addEventListener("click", () => {
+    const bar = document.getElementById("progress");
+    const currentWidth = parseInt(bar.style.width) || 40;
+    const newWidth = Math.min(currentWidth + 10, 100);
+    bar.style.width = newWidth + "%";
+  });
+}
+
+// Logout
+const logoutBtn = document.getElementById("logoutBtn");
+if (logoutBtn) {
+  logoutBtn.addEventListener("click", () => {
+    localStorage.removeItem("user");
+    window.location.href = "login.html";
+  });
+}
