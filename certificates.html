@@ -1,45 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Your Certificates - EduLearn</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Certificates - EduLearn</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <header>
-    <div class="logo">EduLearn</div>
-    <nav id="nav-menu">
-      <a href="index.html">Home</a>
-      <a href="courses.html">Courses</a>
-      <a href="progress.html">Progress</a>
-      <a href="certificates.html" class="active">Certificates</a>
-      <a href="profile.html">Profile</a>
-      <a href="settings.html">Settings</a>
-    </nav>
-    <div class="hamburger" id="hamburger">☰</div>
-    <button id="themeToggle" class="btn small-btn">🌓</button>
+  <!-- Sidebar -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <h2>EduLearn</h2>
+      <span id="closeSidebar">&times;</span>
+    </div>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="courses.html">Courses</a></li>
+      <li><a href="dashboard.html">Dashboard</a></li>
+      <li><a href="certificates.html" class="active">Certificates</a></li>
+      <li><a href="settings.html">Settings</a></li>
+      <li><a href="login.html" id="logoutLink">Logout</a></li>
+    </ul>
+  </aside>
+
+  <!-- Header -->
+  <header class="topbar">
+    <button id="menuBtn" class="menu-btn">☰</button>
+    <h1>My Certificates</h1>
+    <button id="themeToggle" class="theme-btn">🌙</button>
   </header>
 
-  <section class="certificates fade-in">
-    <h2>Your Earned Certificates</h2>
-    <div class="cert-list">
-      <div class="cert-card hover-up">
-        <img src="images/cert-sample.png" alt="Certificate">
-        <p>Web Development Basics</p>
-      </div>
-      <div class="cert-card hover-up">
-        <img src="images/cert-sample.png" alt="Certificate">
-        <p>Python for Beginners</p>
-      </div>
+  <!-- Certificates Grid -->
+  <section class="cert-list fade-in">
+    <div class="cert-card hover-zoom">
+      <img src="images/cert-sample.png" alt="Certificate" />
+      <p>Web Development</p>
+      <button class="btn small-btn">Download</button>
+    </div>
+    <div class="cert-card hover-zoom">
+      <img src="images/cert-sample.png" alt="Certificate" />
+      <p>Python Programming</p>
+      <button class="btn small-btn">Download</button>
     </div>
   </section>
 
   <footer>
-    <div class="developer-credit">
-      Developed by 
+    <p>
+      © 2025 EduLearn | Developed by
       <a href="https://www.linkedin.com/in/tanishq-agrawal-91a505335?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank">Tanishq Agrawal</a>
-    </div>
+    </p>
   </footer>
 
   <script src="script.js"></script>
