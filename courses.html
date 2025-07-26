@@ -9,27 +9,28 @@
 <body>
   <header>
     <div class="logo">EduLearn</div>
-    <nav>
+    <nav id="nav-menu">
       <a href="index.html">Home</a>
       <a href="courses.html" class="active">Courses</a>
       <a href="progress.html">My Progress</a>
     </nav>
+    <div class="hamburger" id="hamburger">☰</div>
   </header>
 
-  <section class="course-list">
+  <section class="course-list fade-in">
     <h2>Available Courses</h2>
     <div class="courses">
-      <div class="course-card">
+      <div class="course-card hover-up">
         <h3>Web Development Basics</h3>
         <p>Learn HTML, CSS, and JS.</p>
         <a href="course-detail.html?course=webdev" class="btn">Start Learning</a>
       </div>
-      <div class="course-card">
+      <div class="course-card hover-up">
         <h3>Python for Beginners</h3>
         <p>Master Python programming from scratch.</p>
         <a href="course-detail.html?course=python" class="btn">Start Learning</a>
       </div>
-      <div class="course-card">
+      <div class="course-card hover-up">
         <h3>Data Science Fundamentals</h3>
         <p>Learn the basics of data analysis and ML.</p>
         <a href="course-detail.html?course=datasci" class="btn">Start Learning</a>
@@ -38,8 +39,11 @@
   </section>
 
   <footer>
-    <p>© 2025 EduLearn</p>
+    <p>© 2025 EduLearn | Developed by 
+      <a href="https://www.linkedin.com/in/tanishq-agrawal-91a505335?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank">Tanishq Agrawal</a>
+    </p>
   </footer>
+
   <script src="script.js"></script>
 </body>
 </html>
