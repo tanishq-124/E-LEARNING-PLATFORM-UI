@@ -1,118 +1,130 @@
-body {
+/* General Styles */
+* {
   margin: 0;
-  font-family: Arial, sans-serif;
-  background: #f4f4f4;
-  color: #333;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", Arial, sans-serif;
 }
+body {
+  background: #f5f5f5;
+  color: #333;
+  transition: background 0.4s, color 0.4s;
+}
+body.dark {
+  background: #181818;
+  color: #eee;
+}
+a { text-decoration: none; color: inherit; }
+
+/* Header */
 header {
-  background: #4CAF50;
-  color: #fff;
   display: flex;
   justify-content: space-between;
-  padding: 15px 20px;
   align-items: center;
-  position: relative;
-}
-header .logo { font-weight: bold; font-size: 1.5rem; }
-header nav a {
-  margin: 0 10px;
-  color: #fff;
-  text-decoration: none;
-  transition: color 0.3s ease;
-}
-header nav a:hover { color: #e0f7e9; }
-header nav a.active { text-decoration: underline; }
-.hamburger {
-  display: none;
-  font-size: 1.8rem;
-  cursor: pointer;
-}
-
-.hero {
-  text-align: center;
-  padding: 50px 20px;
-  background: linear-gradient(to right, #e0f7e9, #d0f0ff);
-  animation: fadeIn 1.5s ease-in;
-}
-.hero h1 { font-size: 2.5rem; margin-bottom: 10px; }
-.btn {
-  display: inline-block;
-  padding: 10px 20px;
+  padding: 15px 20px;
   background: #4CAF50;
   color: #fff;
-  text-decoration: none;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+header .logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+nav {
+  display: flex;
+  gap: 15px;
+}
+nav a {
+  color: #fff;
+  padding: 5px 10px;
+  transition: color 0.3s ease, background 0.3s;
+}
+nav a:hover, nav a.active {
+  background: rgba(255,255,255,0.2);
   border-radius: 5px;
-  transition: transform 0.3s, background 0.3s;
+}
+.hamburger {
+  display: none;
+  font-size: 2rem;
+  cursor: pointer;
+}
+.btn {
+  background: #4CAF50;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: transform 0.3s ease, background 0.3s;
 }
 .btn:hover { transform: scale(1.05); background: #45a049; }
+.btn.alt { background: #2196F3; }
+.btn.small-btn { padding: 6px 10px; font-size: 0.9rem; }
 
-.course-list, .course-detail, .progress-page {
+/* Hero Section */
+.hero {
+  text-align: center;
+  padding: 60px 20px;
+  background: linear-gradient(to right, #e3f9e5, #d0f0ff);
+}
+.hero h1 { font-size: 2.8rem; margin-bottom: 10px; }
+.hero p { margin-bottom: 20px; font-size: 1.2rem; }
+
+/* Course Cards */
+.course-list {
   padding: 20px;
-  max-width: 900px;
+  max-width: 1200px;
   margin: auto;
 }
 .courses {
   display: flex;
-  gap: 20px;
   flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
 }
 .course-card {
   background: #fff;
-  border-radius: 8px;
+  border-radius: 10px;
   padding: 15px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-  flex: 1 1 250px;
-  transition: transform 0.3s ease;
+  max-width: 250px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  text-align: center;
+  transition: transform 0.4s ease, box-shadow 0.4s;
 }
-.course-card.hover-up:hover {
+.course-card img {
+  width: 100%;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+.course-card:hover {
   transform: translateY(-8px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
 }
-.video-container { margin: 20px 0; text-align: center; }
 
+/* Course Detail Page */
+.course-detail {
+  padding: 20px;
+  max-width: 900px;
+  margin: auto;
+  text-align: center;
+}
+.detail-img {
+  max-width: 400px;
+  border-radius: 10px;
+  margin: 20px auto;
+  display: block;
+}
+.video-container { margin: 20px auto; }
+
+/* Progress Bar */
 .progress-bar {
   background: #ddd;
-  border-radius: 5px;
+  border-radius: 6px;
   height: 20px;
   width: 100%;
-  margin: 10px 0;
+  margin: 10px auto;
   overflow: hidden;
 }
-.progress-bar div {
-  height: 100%;
-  background: #4CAF50;
-  width: 0;
-  transition: width 0.6s ease-in-out;
-}
-
-/* Animations */
-.fade-in { animation: fadeIn 1.2s ease; }
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-  nav {
-    display: none;
-    flex-direction: column;
-    background: #4CAF50;
-    position: absolute;
-    top: 60px;
-    left: 0;
-    right: 0;
-    padding: 10px;
-  }
-  nav.active { display: flex; }
-  .hamburger { display: block; }
-  .courses { flex-direction: column; }
-}
-footer {
-  text-align: center;
-  padding: 15px;
-  background: #333;
-  color: #fff;
-  margin-top: 30px;
-}
-footer a { color: #4CAF50; text-decoration: none; }
-footer a:hover { text-decoration: underline; }
+.progress
