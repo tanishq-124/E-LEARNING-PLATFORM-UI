@@ -1,20 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Course Details - EduLearn</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Course Detail - EduLearn</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- Header -->
   <header class="main-header">
     <div class="logo">
       <h1>EduLearn</h1>
-    </div>
-    <div class="search-bar">
-      <input type="text" id="searchInput" placeholder="Search study material..." />
-      <button id="searchBtn">🔍</button>
     </div>
     <nav class="nav-links">
       <a href="index.html">Home</a>
@@ -23,42 +18,18 @@
       <a href="certificates.html">Certificates</a>
       <a href="settings.html">Settings</a>
     </nav>
-    <div class="profile">
-      <a href="dashboard.html"><img src="images/profile.png" alt="Profile" /></a>
-    </div>
   </header>
 
-  <!-- Course Banner & Details -->
-  <section class="course-banner">
-    <img id="courseBanner" src="images/webdev-banner.jpg" alt="Course Banner" />
-    <div class="course-info">
-      <h2 id="courseTitle">Web Development Mastery</h2>
-      <p id="courseSummary">
-        Learn everything from HTML & CSS to advanced JavaScript, React, and full-stack development.
-      </p>
-    </div>
-  </section>
+  <section class="featured-section">
+    <h3 id="courseTitle">Course Title</h3>
+    <p id="courseSummary">Course summary will load dynamically.</p>
+    <button id="enrollNow" class="btn">Enroll Now</button>
 
-  <!-- Playlist Section -->
-  <section class="playlist-section">
-    <h3>Course Playlist</h3>
     <div class="playlist" id="playlistContainer">
-      <!-- Chapters dynamically inserted -->
+      <!-- Playlist videos dynamically added -->
     </div>
   </section>
 
-  <!-- Progress Tracker -->
-  <section class="progress-section">
-    <h3>Your Progress</h3>
-    <div class="progress-bar">
-      <div id="progressBar" style="width:0%;"></div>
-    </div>
-    <p id="progressText">Progress: 0%</p>
-    <p id="milestoneText">Daily Milestone: 0% completed</p>
-    <button id="markCompleteBtn" class="btn">Mark Current Video as Watched</button>
-  </section>
-
-  <!-- Footer -->
   <footer>
     <p>© 2025 EduLearn | Developed by 
       <a href="https://www.linkedin.com/in/tanishq-agrawal-91a505335" target="_blank">
