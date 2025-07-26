@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>My Progress - EduLearn</title>
+  <title>Your Progress - EduLearn</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -12,24 +12,30 @@
     <nav id="nav-menu">
       <a href="index.html">Home</a>
       <a href="courses.html">Courses</a>
-      <a href="progress.html" class="active">My Progress</a>
+      <a href="progress.html" class="active">Progress</a>
+      <a href="certificates.html">Certificates</a>
+      <a href="profile.html">Profile</a>
+      <a href="settings.html">Settings</a>
     </nav>
     <div class="hamburger" id="hamburger">☰</div>
+    <button id="themeToggle" class="btn small-btn">🌓</button>
   </header>
 
   <section class="progress-page fade-in">
-    <h2>Your Course Progress</h2>
+    <h2>Your Learning Progress</h2>
     <ul id="progressList">
       <li>Web Development Basics - <span>40%</span></li>
       <li>Python for Beginners - <span>20%</span></li>
       <li>Data Science Fundamentals - <span>0%</span></li>
+      <li>UI/UX Design Essentials - <span>0%</span></li>
     </ul>
   </section>
 
   <footer>
-    <p>© 2025 EduLearn | Developed by 
+    <div class="developer-credit">
+      Developed by 
       <a href="https://www.linkedin.com/in/tanishq-agrawal-91a505335?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank">Tanishq Agrawal</a>
-    </p>
+    </div>
   </footer>
 
   <script src="script.js"></script>
