@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Settings - EduLearn</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Sidebar -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <h2>EduLearn</h2>
+      <span id="closeSidebar">&times;</span>
+    </div>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="courses.html">Courses</a></li>
+      <li><a href="dashboard.html">Dashboard</a></li>
+      <li><a href="certificates.html">Certificates</a></li>
+      <li><a href="settings.html" class="active">Settings</a></li>
+      <li><a href="login.html" id="logoutLink">Logout</a></li>
+    </ul>
+  </aside>
+
+  <!-- Header -->
+  <header class="topbar">
+    <button id="menuBtn" class="menu-btn">☰</button>
+    <h1>Settings</h1>
+    <button id="themeToggle" class="theme-btn">🌙</button>
+  </header>
+
+  <!-- Settings Section -->
+  <section class="settings fade-in">
+    <h2>Preferences</h2>
+    <div class="setting-item slide-up">
+      <p>Dark Mode</p>
+      <button id="themeToggle" class="btn">Toggle Theme</button>
+    </div>
+    <div class="setting-item slide-up">
+      <p>Account</p>
+      <button id="logoutBtn" class="btn alt">Logout</button>
+    </div>
+  </section>
+
+  <footer>
+    <p>
+      © 2025 EduLearn | Developed by
+      <a href="https://www.linkedin.com/in/tanishq-agrawal-91a505335?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank">Tanishq Agrawal</a>
+    </p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
