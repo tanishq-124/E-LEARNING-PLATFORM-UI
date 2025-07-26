@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>All Courses - EduLearn</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Header -->
+  <header class="main-header">
+    <div class="logo">
+      <h1>EduLearn</h1>
+    </div>
+    <div class="search-bar">
+      <input type="text" id="searchInput" placeholder="Search study material..." />
+      <button id="searchBtn">🔍</button>
+    </div>
+    <nav class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="courses.html" class="active">Courses</a>
+      <a href="dashboard.html">Dashboard</a>
+      <a href="certificates.html">Certificates</a>
+      <a href="settings.html">Settings</a>
+    </nav>
+    <div class="profile">
+      <a href="dashboard.html"><img src="images/profile.png" alt="Profile" /></a>
+    </div>
+  </header>
+
+  <!-- All Courses Section -->
+  <section class="featured-section">
+    <h3>All Courses</h3>
+    <div class="course-grid">
+      <!-- Each course card -->
+      <div class="course-card">
+        <img src="images/webdev-banner.jpg" alt="Web Development" />
+        <h4>Web Development Mastery</h4>
+        <p>HTML, CSS, JS to Full-Stack projects.</p>
+        <a href="course-detail.html?course=webdev" class="btn small">View Details</a>
+      </div>
+      <div class="course-card">
+        <img src="images/python-banner.jpg" alt="Python" />
+        <h4>Python Programming</h4>
+        <p>From basics to AI automation.</p>
+        <a href="course-detail.html?course=python" class="btn small">View Details</a>
+      </div>
+      <div class="course-card">
+        <img src="images/datasci-banner.jpg" alt="Data Science" />
+        <h4>Data Science Bootcamp</h4>
+        <p>ML, analytics, visualization.</p>
+        <a href="course-detail.html?course=datasci" class="btn small">View Details</a>
+      </div>
+      <div class="course-card">
+        <img src="images/ml-banner.jpg" alt="Machine Learning" />
+        <h4>Machine Learning Basics</h4>
+        <p>AI models and practical examples.</p>
+        <a href="course-detail.html?course=ml" class="btn small">View Details</a>
+      </div>
+      <div class="course-card">
+        <img src="images/uiux-banner.jpg" alt="UI/UX" />
+        <h4>UI/UX Design</h4>
+        <p>Wireframing, prototyping, design tools.</p>
+        <a href="course-detail.html?course=uiux" class="btn small">View Details</a>
+      </div>
+      <div class="course-card">
+        <img src="images/java-banner.jpg" alt="Java" />
+        <h4>Java Programming</h4>
+        <p>Core Java, OOP, and projects.</p>
+        <a href="course-detail.html?course=java" class="btn small">View Details</a>
+      </div>
+      <div class="course-card">
+        <img src="images/dsa-banner.jpg" alt="DSA" />
+        <h4>Data Structures & Algorithms</h4>
+        <p>Problem solving and interview prep.</p>
+        <a href="course-detail.html?course=dsa" class="btn small">View Details</a>
+      </div>
+      <div class="course-card">
+        <img src="images/cloud-banner.jpg" alt="Cloud" />
+        <h4>Cloud Computing</h4>
+        <p>AWS, Azure fundamentals.</p>
+        <a href="course-detail.html?course=cloud" class="btn small">View Details</a>
+      </div>
+      <div class="course-card">
+        <img src="images/cybersec-banner.jpg" alt="Cybersecurity" />
+        <h4>Cybersecurity Essentials</h4>
+        <p>Secure systems and networks.</p>
+        <a href="course-detail.html?course=cybersec" class="btn small">View Details</a>
+      </div>
+      <div class="course-card">
+        <img src="images/ai-banner.jpg" alt="AI" />
+        <h4>AI Fundamentals</h4>
+        <p>Introduction to AI and ML concepts.</p>
+        <a href="course-detail.html?course=ai" class="btn small">View Details</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- YouTube Search Results -->
+  <section class="search-results" id="searchResults">
+    <h3>Study Material</h3>
+    <div id="videoContainer" class="video-grid"></div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2025 EduLearn | Developed by 
+      <a href="https://www.linkedin.com/in/tanishq-agrawal-91a505335" target="_blank">
+        Tanishq Agrawal
+      </a>
+    </p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
