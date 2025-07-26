@@ -1,0 +1,95 @@
+/* --- Global Styles --- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+  background: #f7f9fc;
+  color: #222;
+  line-height: 1.5;
+}
+
+/* Dark Mode (can be toggled later) */
+body.dark {
+  background: #181818;
+  color: #eee;
+}
+
+/* --- Header --- */
+.main-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #1e88e5;
+  padding: 1rem 2rem;
+  color: #fff;
+  position: sticky;
+  top: 0;
+  z-index: 999;
+}
+
+.logo h1 {
+  font-size: 1.8rem;
+  font-weight: bold;
+}
+
+.search-bar {
+  flex: 1;
+  margin: 0 2rem;
+  display: flex;
+  max-width: 500px;
+}
+
+.search-bar input {
+  flex: 1;
+  padding: 0.6rem;
+  border: none;
+  border-radius: 4px 0 0 4px;
+  outline: none;
+  font-size: 1rem;
+}
+
+.search-bar button {
+  background: #1565c0;
+  color: #fff;
+  border: none;
+  padding: 0 1rem;
+  border-radius: 0 4px 4px 0;
+  cursor: pointer;
+  font-size: 1.2rem;
+  transition: background 0.3s;
+}
+
+.search-bar button:hover {
+  background: #0d47a1;
+}
+
+.nav-links {
+  display: flex;
+  gap: 1rem;
+}
+
+.nav-links a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 500;
+  padding: 0.5rem;
+  transition: 0.3s;
+}
+
+.nav-links a:hover, .nav-links a.active {
+  background: #1565c0;
+  border-radius: 4px;
+}
+
+.profile img {
+  width: 40px;
+  border-radius: 50%;
+}
+
+/* --- Hero Banner --- */
+.hero-banner {
+  background: url('images/banner-bg.jpg') cent
