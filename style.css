@@ -1,70 +1,62 @@
-/* --- Global Styles --- */
+/* Reset & Fonts */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Segoe UI', sans-serif;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 body {
-  background: #f7f9fc;
-  color: #222;
-  line-height: 1.5;
+  background-color: #f8f9fa;
+  color: #333;
+  line-height: 1.6;
+  transition: background 0.3s ease, color 0.3s ease;
 }
 
-/* Dark Mode (can be toggled later) */
+/* Dark Mode */
 body.dark {
-  background: #181818;
-  color: #eee;
+  background: #121212;
+  color: #e0e0e0;
 }
 
-/* --- Header --- */
+/* Header */
 .main-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: #1e88e5;
-  padding: 1rem 2rem;
+  background: #4a90e2;
   color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 2rem;
   position: sticky;
   top: 0;
-  z-index: 999;
+  z-index: 10;
 }
 
-.logo h1 {
+.main-header .logo h1 {
+  margin: 0;
   font-size: 1.8rem;
   font-weight: bold;
 }
 
 .search-bar {
-  flex: 1;
-  margin: 0 2rem;
   display: flex;
-  max-width: 500px;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 .search-bar input {
-  flex: 1;
-  padding: 0.6rem;
+  padding: 0.4rem 0.8rem;
+  border-radius: 5px;
   border: none;
-  border-radius: 4px 0 0 4px;
   outline: none;
-  font-size: 1rem;
 }
 
 .search-bar button {
-  background: #1565c0;
-  color: #fff;
+  background: #fff;
   border: none;
-  padding: 0 1rem;
-  border-radius: 0 4px 4px 0;
+  border-radius: 5px;
+  padding: 0.4rem 0.8rem;
   cursor: pointer;
-  font-size: 1.2rem;
-  transition: background 0.3s;
-}
-
-.search-bar button:hover {
-  background: #0d47a1;
 }
 
 .nav-links {
@@ -76,45 +68,27 @@ body.dark {
   color: #fff;
   text-decoration: none;
   font-weight: 500;
-  padding: 0.5rem;
-  transition: 0.3s;
+  transition: opacity 0.3s;
 }
 
-.nav-links a:hover, .nav-links a.active {
-  background: #1565c0;
-  border-radius: 4px;
+.nav-links a.active, .nav-links a:hover {
+  opacity: 0.7;
 }
 
 .profile img {
   width: 40px;
+  height: 40px;
   border-radius: 50%;
+  cursor: pointer;
 }
 
-/* --- Hero Banner --- */
+/* Hero Banner */
 .hero-banner {
   background: url('images/banner-bg.jpg') center/cover no-repeat;
   color: #fff;
   text-align: center;
-  padding: 5rem 1rem;
-  position: relative;
-}
-
-.hero-banner::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0,0,0,0.5);
-}
-
-.hero-content {
-  position: relative;
-  z-index: 2;
-  max-width: 700px;
-  margin: auto;
-  animation: slideUp 1s ease forwards;
+  padding: 4rem 1rem;
+  animation: fadeIn 1s ease-in-out;
 }
 
 .hero-content h2 {
@@ -127,127 +101,135 @@ body.dark {
   margin-bottom: 1.5rem;
 }
 
-.hero-content .btn {
-  background: #ffb300;
-  color: #000;
-  padding: 0.8rem 1.5rem;
-  font-size: 1rem;
+.btn {
+  background: #4a90e2;
+  color: #fff;
+  padding: 0.6rem 1.2rem;
+  border: none;
   border-radius: 5px;
-  text-decoration: none;
-  transition: background 0.3s;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background 0.3s ease;
 }
 
-.hero-content .btn:hover {
-  background: #ffa000;
+.btn:hover {
+  background: #357ab8;
 }
 
-/* --- Courses Section --- */
-.featured-section {
-  padding: 3rem 2rem;
-  background: #fff;
-}
-
-.featured-section h3 {
-  text-align: center;
-  margin-bottom: 2rem;
-  font-size: 2rem;
-}
-
+/* Course Grid */
 .course-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 1.5rem;
+  gap: 1rem;
+  margin: 2rem;
 }
 
 .course-card {
-  background: #fdfdfd;
+  background: #fff;
   border-radius: 8px;
-  overflow: hidden;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  padding: 1rem;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
   text-align: center;
-  padding-bottom: 1rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .course-card img {
   width: 100%;
-  height: 160px;
-  object-fit: cover;
-}
-
-.course-card h4 {
-  margin: 1rem 0 0.5rem;
-}
-
-.course-card p {
-  font-size: 0.95rem;
-  color: #555;
-  margin: 0 1rem 1rem;
-}
-
-.course-card .btn {
-  background: #1e88e5;
-  padding: 0.5rem 1rem;
-  border-radius: 4px;
-  color: #fff;
-  text-decoration: none;
-  font-size: 0.9rem;
+  border-radius: 8px;
+  margin-bottom: 0.5rem;
 }
 
 .course-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
 }
 
-/* --- YouTube Search Results --- */
-.search-results {
-  padding: 3rem 2rem;
-  background: #f1f3f6;
+/* Progress Bar */
+.progress-bar {
+  width: 100%;
+  height: 8px;
+  background: #e0e0e0;
+  border-radius: 5px;
+  overflow: hidden;
+  margin-top: 0.5rem;
 }
 
-.search-results h3 {
-  text-align: center;
-  margin-bottom: 1.5rem;
+.progress-bar div {
+  height: 100%;
+  background: #4a90e2;
+  transition: width 0.3s ease;
 }
 
-.video-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 1.5rem;
+/* Playlist */
+.playlist .video-card {
+  margin-bottom: 1rem;
 }
 
 .video-card iframe {
   width: 100%;
+  height: 200px;
   border-radius: 8px;
 }
 
-.video-card h4 {
-  margin-top: 0.5rem;
-  font-size: 1rem;
-  color: #333;
+/* Login Page */
+.login-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #4a90e2, #6dd5ed);
+  color: #fff;
 }
 
-/* --- Footer --- */
+.login-container {
+  background: #fff;
+  color: #333;
+  padding: 2rem;
+  border-radius: 10px;
+  max-width: 400px;
+  width: 90%;
+  text-align: center;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+  animation: slideIn 0.8s ease;
+}
+
+.login-container h2 {
+  margin-bottom: 1rem;
+}
+
+.login-container input {
+  width: 100%;
+  padding: 0.6rem;
+  margin-bottom: 1rem;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+}
+
+.note {
+  font-size: 0.9rem;
+  color: #555;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateY(-30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Footer */
 footer {
-  background: #eceff1;
   text-align: center;
   padding: 1rem;
-  font-size: 0.9rem;
+  background: #f1f1f1;
+  margin-top: 2rem;
 }
-
 footer a {
-  color: #1e88e5;
+  color: #4a90e2;
   text-decoration: none;
-}
-
-/* --- Animations --- */
-@keyframes slideUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
 }
