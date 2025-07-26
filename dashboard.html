@@ -7,15 +7,8 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <!-- Header -->
   <header class="main-header">
-    <div class="logo">
-      <h1>EduLearn</h1>
-    </div>
-    <div class="search-bar">
-      <input type="text" id="searchInput" placeholder="Search study material..." />
-      <button id="searchBtn">🔍</button>
-    </div>
+    <div class="logo"><h1>EduLearn</h1></div>
     <nav class="nav-links">
       <a href="index.html">Home</a>
       <a href="courses.html">Courses</a>
@@ -23,39 +16,19 @@
       <a href="certificates.html">Certificates</a>
       <a href="settings.html">Settings</a>
     </nav>
-    <div class="profile">
-      <a href="dashboard.html"><img src="images/profile.png" alt="Profile" /></a>
-    </div>
   </header>
 
-  <!-- Dashboard Overview -->
   <section class="featured-section">
-    <h3>Your Dashboard</h3>
-    <div class="course-grid">
-      <div class="course-card">
-        <h4>Total Courses</h4>
-        <p id="totalCourses">10</p>
-      </div>
-      <div class="course-card">
-        <h4>Courses Completed</h4>
-        <p id="completedCourses">0</p>
-      </div>
-      <div class="course-card">
-        <h4>Certificates Earned</h4>
-        <p id="certificatesEarned">0</p>
-      </div>
+    <div class="profile-card">
+      <img src="images/profile.png" alt="Profile" class="profile-pic">
+      <h3 id="profileName">Student</h3>
+      <p id="profileEmail">student@example.com</p>
     </div>
-  </section>
 
-  <!-- Progress by Course -->
-  <section class="progress-section">
     <h3>Your Progress</h3>
-    <div id="dashboardProgress" class="course-grid">
-      <!-- Progress dynamically loaded -->
-    </div>
+    <div id="dashboardProgress" class="course-grid"></div>
   </section>
 
-  <!-- Footer -->
   <footer>
     <p>© 2025 EduLearn | Developed by 
       <a href="https://www.linkedin.com/in/tanishq-agrawal-91a505335" target="_blank">
