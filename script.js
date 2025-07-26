@@ -113,3 +113,73 @@ if (markBtn) {
 
 // Initialize progress
 updateProgress();
+
+// --- Dashboard Progress ---
+const dashboardProgress = document.getElementById("dashboardProgress");
+if (dashboardProgress) {
+  const courses = Object.keys(coursePlaylists);
+  courses.forEach(course => {
+    const watched = parseInt(localStorage.getItem(`course_progress_${course}`)) || 0;
+    const total = coursePlaylists[course]?.length || 1;
+    const percent = Math.min(100, Math.round((watched / total) * 100));
+
+    const div = document.createElement("div");
+    div.className = "course-card";
+    div.innerHTML = `
+      <h4>${course.toUpperCase()}</h4>
+      <p>Progress: ${percent}%</p>
+      <div class="progress-bar"><div style="width:${percent}%;"></div></div>
+    `;
+    dashboardProgress.appendChild(div);
+  });
+}
+
+// --- Certificates (auto-generate for completed courses) ---
+const certificateContainer = document.getElementById("certificateContainer");
+if (certificateContainer) {
+  const courses = Object.keys(coursePlaylists);
+  courses.forEach(course => {
+    const watched = parseInt(localStorage.getItem(`course_progress_${course}`)) || 0;
+    const total = coursePlaylists[course]?.length || 1;
+    if (watched >= total) {
+      const div = document.createElement("div");
+      div.className = "course-card";
+      div.innerHTML = `
+        <img src="images/certificate-placeholder.jpg" alt="Certificate" />
+        <h4>${course.toUpperCase()} Certificate</h4>
+        <p>Congratulations! Course completed.</p>
+      `;
+      certificateContainer.appendChild(div);
+    }
+  });
+}
+
+// --- Settings (Profile + Theme + Reset) ---
+const toggleThemeBtn = document.getElementById("toggleThemeBtn");
+if (toggleThemeBtn) {
+  toggleThemeBtn.addEventListener("click", () => {
+    document.body.classList.toggle("dark");
+  });
+}
+
+const resetBtn = document.getElementById("resetProgressBtn");
+if (resetBtn) {
+  resetBtn.addEventListener("click", () => {
+    Object.keys(localStorage).forEach(key => {
+      if (key.startsWith("course_progress_")) localStorage.removeItem(key);
+    });
+    alert("Progress reset!");
+    location.reload();
+  });
+}
+
+const saveNameBtn = document.getElementById("saveNameBtn");
+if (saveNameBtn) {
+  saveNameBtn.addEventListener("click", () => {
+    const name = document.getElementById("userName").value.trim();
+    if (name) {
+      localStorage.setItem("user_name", name);
+      alert("Name saved!");
+    }
+  });
+}
