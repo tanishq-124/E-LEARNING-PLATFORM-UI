@@ -8,12 +8,10 @@
 </head>
 <body>
   <header class="main-header">
-    <div class="logo">
-      <h1>EduLearn</h1>
-    </div>
+    <div class="logo"><h1>EduLearn</h1></div>
     <div class="search-bar">
-      <input type="text" id="searchInput" placeholder="Search study material..." />
-      <button id="searchBtn">🔍</button>
+      <input type="text" id="searchInput" placeholder="Search Study Videos..." />
+      <button id="searchBtn">Search</button>
     </div>
     <nav class="nav-links">
       <a href="index.html">Home</a>
@@ -21,35 +19,18 @@
       <a href="dashboard.html">Dashboard</a>
       <a href="certificates.html">Certificates</a>
       <a href="settings.html">Settings</a>
-      <a href="login.html">Login</a>
     </nav>
-    <div class="profile">
-      <a href="dashboard.html"><img src="images/profile.png" alt="Profile" /></a>
-    </div>
   </header>
 
   <section class="featured-section">
-    <h3>All Courses</h3>
-    <div class="course-grid">
-      <div class="course-card">
-        <img src="images/webdev-banner.jpg" alt="Web Dev" />
-        <h4>Web Development Mastery</h4>
-        <p>Learn frontend & backend development with projects.</p>
-        <button class="btn enroll-btn" data-course="webdev">Enroll</button>
-      </div>
-      <div class="course-card">
-        <img src="images/python-banner.jpg" alt="Python" />
-        <h4>Python Programming</h4>
-        <p>Master Python for automation, AI, and data.</p>
-        <button class="btn enroll-btn" data-course="python">Enroll</button>
-      </div>
-      <div class="course-card">
-        <img src="images/datasci-banner.jpg" alt="Data Science" />
-        <h4>Data Science Bootcamp</h4>
-        <p>ML, analytics, and visualization techniques.</p>
-        <button class="btn enroll-btn" data-course="datasci">Enroll</button>
-      </div>
-    </div>
+    <h2>Explore Our Courses</h2>
+    <div class="course-grid" id="courseList"></div>
+  </section>
+
+  <!-- Search Results Section -->
+  <section class="featured-section" id="searchResultsSection" style="display:none;">
+    <h3>Study Videos</h3>
+    <div class="video-grid" id="videoResults"></div>
   </section>
 
   <footer>
@@ -60,6 +41,90 @@
     </p>
   </footer>
 
-  <script src="script.js"></script>
+  <script>
+    const courses = [
+      {
+        title: "Web Development Bootcamp",
+        image: "images/webdev-banner.jpg",
+        summary: "Learn HTML, CSS, JS, and build websites from scratch.",
+      },
+      {
+        title: "Python Programming",
+        image: "images/python-banner.jpg",
+        summary: "Master Python from basics to advanced with projects.",
+      },
+      {
+        title: "Data Science Bootcamp",
+        image: "images/datasci-banner.jpg",
+        summary: "Learn data analysis, visualization, and machine learning.",
+      },
+      {
+        title: "Machine Learning",
+        image: "images/ml-banner.jpg",
+        summary: "Understand algorithms, models, and AI applications.",
+      },
+      {
+        title: "AI Fundamentals",
+        image: "images/ai-banner.jpg",
+        summary: "Introduction to artificial intelligence and deep learning.",
+      },
+      {
+        title: "Cloud Computing",
+        image: "images/cloud-banner.jpg",
+        summary: "Learn AWS, Azure, and Google Cloud for developers.",
+      },
+      {
+        title: "Cybersecurity Essentials",
+        image: "images/cyber-banner.jpg",
+        summary: "Protect systems, networks, and understand security tools.",
+      },
+      {
+        title: "Full-Stack Developer Roadmap",
+        image: "images/fullstack-banner.jpg",
+        summary: "Complete guide to becoming a full-stack engineer.",
+      }
+    ];
+
+    const courseList = document.getElementById("courseList");
+    courses.forEach(course => {
+      const card = document.createElement("div");
+      card.className = "course-card";
+      card.innerHTML = `
+        <img src="${course.image}" alt="${course.title}">
+        <h4>${course.title}</h4>
+        <p>${course.summary}</p>
+        <button class="btn enrollBtn">Enroll</button>
+      `;
+      courseList.appendChild(card);
+
+      card.querySelector(".enrollBtn").addEventListener("click", () => {
+        enrollCourse(course);
+      });
+    });
+
+    function enrollCourse(course) {
+      let enrolled = JSON.parse(localStorage.getItem("enrolled_courses") || "[]");
+      if (!enrolled.find(c => c.title === course.title)) {
+        enrolled.push({ ...course, progress: 0 });
+        localStorage.setItem("enrolled_courses", JSON.stringify(enrolled));
+        alert(`Enrolled in ${course.title}`);
+      } else {
+        alert(`Already enrolled in ${course.title}`);
+      }
+    }
+
+    // Dummy YouTube Search (Simulated)
+    document.getElementById("searchBtn").addEventListener("click", () => {
+      const query = document.getElementById("searchInput").value.trim();
+      const resultsSection = document.getElementById("searchResultsSection");
+      const videoResults = document.getElementById("videoResults");
+      if (!query) return alert("Please enter a topic to search.");
+      resultsSection.style.display = "block";
+      videoResults.innerHTML = `
+        <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" allowfullscreen></iframe>
+        <p>Sample video for "${query}" (study-related)</p>
+      `;
+    });
+  </script>
 </body>
 </html>
