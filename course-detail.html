@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Course Details - EduLearn</title>
   <link rel="stylesheet" href="style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <style>
     .course-container { display: flex; flex-wrap: wrap; gap: 2rem; margin-top: 2rem; }
     .video-section { flex: 2; min-width: 300px; }
@@ -13,6 +14,8 @@
     .lesson:hover { background: #e5e7eb; }
     .lesson.completed { color: green; font-weight: bold; }
     .certificate-btn { display: none; margin-top: 1rem; }
+    .certificate-preview { display: none; margin-top: 1rem; text-align: center; }
+    .certificate-preview img { max-width: 100%; border: 2px solid #ccc; border-radius: 6px; }
   </style>
 </head>
 <body>
@@ -47,6 +50,10 @@
           <p>Progress: <span id="progress-text">0%</span></p>
           <div class="progress-bar"><div class="progress" id="progress-bar" style="width:0%"></div></div>
           <button id="certificate-btn" class="btn certificate-btn">Download Certificate</button>
+          <div class="certificate-preview" id="certificate-preview">
+            <h3>Your Certificate Preview</h3>
+            <img id="certificate-img" alt="Certificate Preview" />
+          </div>
         </div>
       </div>
 
@@ -102,7 +109,7 @@
       },
       uiux: {
         title: "UI/UX Design",
-        summary: "Master design principles and create user-friendly experiences.",
+        summary: "Create stunning designs and user-friendly experiences.",
         lessons: [
           { title: "Design Basics", video: "https://www.youtube.com/embed/DGIXT7ce3vQ", duration: "4:50" },
           { title: "Wireframing", video: "https://www.youtube.com/embed/1p1VgGJxSXY", duration: "5:30" },
@@ -111,7 +118,7 @@
       },
       react: {
         title: "React.js Development",
-        summary: "Learn React and build modern web applications.",
+        summary: "Learn React and build dynamic web apps.",
         lessons: [
           { title: "React Basics", video: "https://www.youtube.com/embed/w7ejDZ8SWv8", duration: "5:10" },
           { title: "State and Props", video: "https://www.youtube.com/embed/35lXWvCuM8o", duration: "6:30" },
@@ -120,7 +127,7 @@
       },
       ml: {
         title: "Machine Learning",
-        summary: "Start your ML journey with theory and projects.",
+        summary: "Understand AI and ML with hands-on projects.",
         lessons: [
           { title: "ML Overview", video: "https://www.youtube.com/embed/GwIo3gDZCVQ", duration: "5:20" },
           { title: "Regression Models", video: "https://www.youtube.com/embed/kHwlB_j7Hkc", duration: "6:40" },
@@ -129,7 +136,7 @@
       },
       java: {
         title: "Java Backend",
-        summary: "Develop backend applications using Java and Spring.",
+        summary: "APIs, Spring Boot, and database-driven apps.",
         lessons: [
           { title: "Java Basics", video: "https://www.youtube.com/embed/grEKMHGYyns", duration: "6:10" },
           { title: "OOP in Java", video: "https://www.youtube.com/embed/8cm1x4bC610", duration: "7:45" },
@@ -138,28 +145,28 @@
       },
       cyber: {
         title: "Cybersecurity",
-        summary: "Learn how to secure systems and networks.",
+        summary: "Learn ethical hacking and security tools.",
         lessons: [
           { title: "Intro to Cybersecurity", video: "https://www.youtube.com/embed/inWWhr5tnEA", duration: "5:35" },
-          { title: "Network Security Basics", video: "https://www.youtube.com/embed/XJz0pTf-6QE", duration: "6:15" },
-          { title: "Ethical Hacking Basics", video: "https://www.youtube.com/embed/3Kq1MIfTWCE", duration: "7:50" }
+          { title: "Network Security", video: "https://www.youtube.com/embed/XJz0pTf-6QE", duration: "6:15" },
+          { title: "Ethical Hacking", video: "https://www.youtube.com/embed/3Kq1MIfTWCE", duration: "7:50" }
         ]
       },
       android: {
         title: "Android Development",
-        summary: "Build Android apps using Java and Kotlin.",
+        summary: "Kotlin, Java & app development.",
         lessons: [
           { title: "Intro to Android", video: "https://www.youtube.com/embed/fis26HvvDII", duration: "5:25" },
           { title: "Kotlin Basics", video: "https://www.youtube.com/embed/3P9b3mP2U84", duration: "6:20" },
-          { title: "Building UI", video: "https://www.youtube.com/embed/H_oGi8uuDpA", duration: "7:10" }
+          { title: "UI Building", video: "https://www.youtube.com/embed/H_oGi8uuDpA", duration: "7:10" }
         ]
       },
       cloud: {
         title: "Cloud Computing",
-        summary: "Understand cloud platforms and services.",
+        summary: "Learn AWS, Azure & GCP essentials.",
         lessons: [
-          { title: "Intro to Cloud", video: "https://www.youtube.com/embed/JIbIYCM48to", duration: "5:40" },
-          { title: "AWS Basics", video: "https://www.youtube.com/embed/ulprqHHWlng", duration: "6:30" },
+          { title: "Cloud Basics", video: "https://www.youtube.com/embed/JIbIYCM48to", duration: "5:40" },
+          { title: "AWS Overview", video: "https://www.youtube.com/embed/ulprqHHWlng", duration: "6:30" },
           { title: "Deploying Apps", video: "https://www.youtube.com/embed/xT13U4TRR1g", duration: "8:00" }
         ]
       }
@@ -170,14 +177,15 @@
     const course = allCourses[courseKey];
     const videoPlayer = document.getElementById('course-video');
     const lessonList = document.getElementById('lesson-list');
+    const previewImg = document.getElementById('certificate-img');
+    const previewBox = document.getElementById('certificate-preview');
     let completed = JSON.parse(localStorage.getItem(`${courseKey}-completed`)) || [];
     let lastLesson = localStorage.getItem(`${courseKey}-last`) || 0;
 
-    // Load course details
     document.getElementById('course-title').textContent = course.title;
     document.getElementById('course-summary').textContent = course.summary;
 
-    // Populate lessons
+    // Lesson rendering
     course.lessons.forEach((lesson, idx) => {
       const div = document.createElement('div');
       div.className = 'lesson' + (completed.includes(idx) ? ' completed' : '');
@@ -196,7 +204,6 @@
       lessonList.appendChild(div);
     });
 
-    // Load last watched lesson
     videoPlayer.src = course.lessons[lastLesson]?.video || course.lessons[0].video;
 
     const progressText = document.getElementById('progress-text');
@@ -207,12 +214,44 @@
       const percent = Math.floor((completed.length / course.lessons.length) * 100);
       progressText.textContent = `${percent}%`;
       progressBar.style.width = `${percent}%`;
-      if (percent === 100) certBtn.style.display = 'inline-block';
+      if (percent === 100) {
+        certBtn.style.display = 'inline-block';
+        previewBox.style.display = 'block';
+        previewImg.src = 'https://www.ispringsolutions.com/blog/wp-content/uploads/editor/2024/03/ispring-blog-image-1710411985.png';
+      }
     }
 
     certBtn.addEventListener('click', () => {
-      alert('Congratulations! You can download your certificate now.');
-      window.location.href = 'certificates.html';
+      const studentName = localStorage.getItem('profileName') || 'Student';
+      const courseName = course.title;
+      const date = new Date().toLocaleDateString();
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF('l', 'mm', 'a4');
+
+      const imgUrl = previewImg.src;
+
+      const img = new Image();
+      img.crossOrigin = 'anonymous';
+      img.onload = () => {
+        doc.addImage(img, 'PNG', 0, 0, 297, 210);
+        doc.setFontSize(24);
+        doc.text(studentName, 148, 120, { align: 'center' });
+        doc.setFontSize(18);
+        doc.text(`has successfully completed`, 148, 135, { align: 'center' });
+        doc.setFontSize(20);
+        doc.text(courseName, 148, 150, { align: 'center' });
+        doc.setFontSize(14);
+        doc.text(`Issued by: Tanishq Agrawal`, 148, 165, { align: 'center' });
+        doc.setFontSize(12);
+        doc.text(`Date: ${date}`, 148, 180, { align: 'center' });
+        doc.save(`${courseName}_Certificate.pdf`);
+
+        // Store for certificates page
+        const certs = JSON.parse(localStorage.getItem('userCertificates') || '[]');
+        certs.push({ course: courseName, student: studentName, date });
+        localStorage.setItem('userCertificates', JSON.stringify(certs));
+      };
+      img.src = imgUrl;
     });
 
     updateProgress();
