@@ -19,14 +19,25 @@
   </header>
 
   <section class="featured-section">
-    <div class="profile-card">
-      <img src="images/profile.png" alt="Profile" class="profile-pic">
+    <!-- User Profile -->
+    <div class="profile-card" id="profileSection">
+      <img id="profilePhoto" src="images/profile.png" alt="Profile" class="profile-pic" />
       <h3 id="profileName">Student</h3>
       <p id="profileEmail">student@example.com</p>
+      <p id="profileDob">Date of Birth: --</p>
     </div>
 
-    <h3>Your Progress</h3>
+    <!-- Enrolled Courses -->
+    <h3>Your Enrolled Courses</h3>
     <div id="dashboardProgress" class="course-grid"></div>
+
+    <!-- Daily Milestone Tracker -->
+    <div class="milestone-section">
+      <h4>Daily Milestones</h4>
+      <p>Complete 1 lesson per day to stay on track!</p>
+      <button id="markMilestoneBtn" class="btn">Mark Today as Completed</button>
+      <p id="milestoneStatus"></p>
+    </div>
   </section>
 
   <footer>
@@ -37,7 +48,40 @@
     </p>
   </footer>
 
-  <script src="script.js"></script>
-</body>
-</html>
+  <script>
+    // Load user profile details
+    const name = localStorage.getItem("user_name") || "Student";
+    const email = localStorage.getItem("user_email") || "student@example.com";
+    const dob = localStorage.getItem("user_dob") || "--";
+    const photo = localStorage.getItem("user_photo");
 
+    document.getElementById("profileName").innerText = name;
+    document.getElementById("profileEmail").innerText = email;
+    document.getElementById("profileDob").innerText = "Date of Birth: " + dob;
+    if (photo) document.getElementById("profilePhoto").src = photo;
+
+    // Load enrolled courses (from localStorage)
+    const progressContainer = document.getElementById("dashboardProgress");
+    const enrolledCourses = JSON.parse(localStorage.getItem("enrolled_courses") || "[]");
+
+    if (enrolledCourses.length === 0) {
+      progressContainer.innerHTML = "<p>You haven't enrolled in any courses yet.</p>";
+    } else {
+      enrolledCourses.forEach(course => {
+        const card = document.createElement("div");
+        card.className = "course-card";
+        card.innerHTML = `
+          <img src="${course.image}" alt="${course.title}" />
+          <h4>${course.title}</h4>
+          <p>${course.summary}</p>
+          <div class="progress-bar">
+            <div style="width: ${course.progress || 0}%"></div>
+          </div>
+          <p>${course.progress || 0}% Completed</p>
+        `;
+        progressContainer.appendChild(card);
+      });
+    }
+
+    // Milestone Tracker
+    const milestoneBtn = document.get
