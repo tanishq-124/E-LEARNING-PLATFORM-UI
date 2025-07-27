@@ -1,81 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Login - EduLearn</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css">
 </head>
-<body class="login-page">
+<body>
+  <header class="header">
+    <div class="logo">EduLearn</div>
+    <nav class="nav-links" id="nav-menu">
+      <a href="index.html">Home</a>
+      <a href="courses.html">Courses</a>
+      <a href="dashboard.html">Dashboard</a>
+    </nav>
+    <div class="hamburger" id="hamburger">☰</div>
+  </header>
 
-  <div class="login-container">
-    <h2>Welcome to EduLearn</h2>
-    <p>Log in to access your courses and profile</p>
-
-    <!-- Local Login Form -->
-    <form id="loginForm">
-      <input type="text" id="nameInput" placeholder="Full Name" required />
-      <input type="email" id="emailInput" placeholder="Email Address" required />
-      <input type="date" id="dobInput" required />
-      <label for="photoInput">Upload Profile Photo:</label>
-      <input type="file" id="photoInput" accept="image/*" />
-      <button type="submit" class="btn">Login</button>
+  <section class="featured fade-in">
+    <h2>Login to EduLearn</h2>
+    <form class="login-form">
+      <input type="email" placeholder="Email" required>
+      <input type="password" placeholder="Password" required>
+      <button class="btn primary" type="submit">Login</button>
     </form>
-
-    <!-- Google Login (Demo Placeholder) -->
-    <div class="or-divider">OR</div>
-    <button class="btn google-btn" id="googleLoginBtn">
-      Login with Google
-    </button>
-
-    <p class="note">
-      New here? Just log in — your account will be created automatically.
-    </p>
-  </div>
+    <p>Don't have an account? <a href="#">Register</a></p>
+  </section>
 
   <footer>
-    <p>© 2025 EduLearn | Developed by 
-      <a href="https://www.linkedin.com/in/tanishq-agrawal-91a505335" target="_blank">
-        Tanishq Agrawal
-      </a>
+    <p>@ 2025 EduLearn | Developed by 
+      <a href="https://www.linkedin.com/in/tanishq-agrawal-91a505335" target="_blank">Tanishq Agrawal</a>
     </p>
   </footer>
-
-  <script>
-    const loginForm = document.getElementById("loginForm");
-    const photoInput = document.getElementById("photoInput");
-
-    loginForm.addEventListener("submit", (e) => {
-      e.preventDefault();
-      const name = document.getElementById("nameInput").value.trim();
-      const email = document.getElementById("emailInput").value.trim();
-      const dob = document.getElementById("dobInput").value;
-
-      let photoData = "";
-      if (photoInput.files[0]) {
-        const reader = new FileReader();
-        reader.onload = function(event) {
-          photoData = event.target.result;
-          saveUser(name, email, dob, photoData);
-        };
-        reader.readAsDataURL(photoInput.files[0]);
-      } else {
-        saveUser(name, email, dob, "");
-      }
-    });
-
-    function saveUser(name, email, dob, photo) {
-      localStorage.setItem("user_name", name);
-      localStorage.setItem("user_email", email);
-      localStorage.setItem("user_dob", dob);
-      if (photo) localStorage.setItem("user_photo", photo);
-      alert(`Welcome, ${name}!`);
-      window.location.href = "dashboard.html";
-    }
-
-    document.getElementById("googleLoginBtn").addEventListener("click", () => {
-      alert("Google login would be integrated with Firebase in the advanced version.");
-    });
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
