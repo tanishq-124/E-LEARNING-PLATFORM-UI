@@ -40,8 +40,7 @@
     <div class="course-container">
       <!-- Video Player -->
       <div class="video-section">
-        <iframe id="course-video" width="100%" height="400" 
-          src="" frameborder="0" allowfullscreen></iframe>
+        <iframe id="course-video" width="100%" height="400" src="" frameborder="0" allowfullscreen></iframe>
 
         <!-- Progress -->
         <div style="margin-top:1rem;">
@@ -69,8 +68,7 @@
   </footer>
 
   <script>
-    // Course data with sample lessons
-    const courseData = {
+    const allCourses = {
       python: {
         title: "Python Programming",
         summary: "Master Python from basics to automation and projects.",
@@ -98,36 +96,99 @@
         lessons: [
           { title: "Intro to Data Science", video: "https://www.youtube.com/embed/ua-CiDNNj30", duration: "5:45" },
           { title: "Data Cleaning", video: "https://www.youtube.com/embed/5jYcB2pZg_I", duration: "6:20" },
-          { title: "Pandas Basics", video: "https://www.youtube.com/embed/vmEHCJofslg", duration: "7:55" }
+          { title: "Pandas Basics", video: "https://www.youtube.com/embed/vmEHCJofslg", duration: "7:55" },
+          { title: "Machine Learning Intro", video: "https://www.youtube.com/embed/GwIo3gDZCVQ", duration: "8:00" }
+        ]
+      },
+      uiux: {
+        title: "UI/UX Design",
+        summary: "Master design principles and create user-friendly experiences.",
+        lessons: [
+          { title: "Design Basics", video: "https://www.youtube.com/embed/DGIXT7ce3vQ", duration: "4:50" },
+          { title: "Wireframing", video: "https://www.youtube.com/embed/1p1VgGJxSXY", duration: "5:30" },
+          { title: "Prototyping", video: "https://www.youtube.com/embed/QC6_QUN0-Yg", duration: "6:00" }
+        ]
+      },
+      react: {
+        title: "React.js Development",
+        summary: "Learn React and build modern web applications.",
+        lessons: [
+          { title: "React Basics", video: "https://www.youtube.com/embed/w7ejDZ8SWv8", duration: "5:10" },
+          { title: "State and Props", video: "https://www.youtube.com/embed/35lXWvCuM8o", duration: "6:30" },
+          { title: "React Hooks", video: "https://www.youtube.com/embed/f687hBjwFcM", duration: "7:15" }
+        ]
+      },
+      ml: {
+        title: "Machine Learning",
+        summary: "Start your ML journey with theory and projects.",
+        lessons: [
+          { title: "ML Overview", video: "https://www.youtube.com/embed/GwIo3gDZCVQ", duration: "5:20" },
+          { title: "Regression Models", video: "https://www.youtube.com/embed/kHwlB_j7Hkc", duration: "6:40" },
+          { title: "Classification Basics", video: "https://www.youtube.com/embed/OGxgnH8y2NM", duration: "7:00" }
+        ]
+      },
+      java: {
+        title: "Java Backend",
+        summary: "Develop backend applications using Java and Spring.",
+        lessons: [
+          { title: "Java Basics", video: "https://www.youtube.com/embed/grEKMHGYyns", duration: "6:10" },
+          { title: "OOP in Java", video: "https://www.youtube.com/embed/8cm1x4bC610", duration: "7:45" },
+          { title: "Spring Boot Intro", video: "https://www.youtube.com/embed/35EQXmHKZYs", duration: "8:25" }
+        ]
+      },
+      cyber: {
+        title: "Cybersecurity",
+        summary: "Learn how to secure systems and networks.",
+        lessons: [
+          { title: "Intro to Cybersecurity", video: "https://www.youtube.com/embed/inWWhr5tnEA", duration: "5:35" },
+          { title: "Network Security Basics", video: "https://www.youtube.com/embed/XJz0pTf-6QE", duration: "6:15" },
+          { title: "Ethical Hacking Basics", video: "https://www.youtube.com/embed/3Kq1MIfTWCE", duration: "7:50" }
+        ]
+      },
+      android: {
+        title: "Android Development",
+        summary: "Build Android apps using Java and Kotlin.",
+        lessons: [
+          { title: "Intro to Android", video: "https://www.youtube.com/embed/fis26HvvDII", duration: "5:25" },
+          { title: "Kotlin Basics", video: "https://www.youtube.com/embed/3P9b3mP2U84", duration: "6:20" },
+          { title: "Building UI", video: "https://www.youtube.com/embed/H_oGi8uuDpA", duration: "7:10" }
+        ]
+      },
+      cloud: {
+        title: "Cloud Computing",
+        summary: "Understand cloud platforms and services.",
+        lessons: [
+          { title: "Intro to Cloud", video: "https://www.youtube.com/embed/JIbIYCM48to", duration: "5:40" },
+          { title: "AWS Basics", video: "https://www.youtube.com/embed/ulprqHHWlng", duration: "6:30" },
+          { title: "Deploying Apps", video: "https://www.youtube.com/embed/xT13U4TRR1g", duration: "8:00" }
         ]
       }
-      // You can add similar lesson arrays for other 7 courses (React, ML, etc.)
     };
 
-    // Get selected course from URL
     const params = new URLSearchParams(window.location.search);
     const courseKey = params.get('course') || 'python';
-    const course = courseData[courseKey];
-
-    if (course) {
-      document.getElementById('course-title').textContent = course.title;
-      document.getElementById('course-summary').textContent = course.summary;
-    }
-
+    const course = allCourses[courseKey];
     const videoPlayer = document.getElementById('course-video');
     const lessonList = document.getElementById('lesson-list');
-    let completedLessons = JSON.parse(localStorage.getItem(`${courseKey}-completed`)) || [];
-    
-    // Load lessons into playlist
-    course.lessons.forEach((lesson, index) => {
+    let completed = JSON.parse(localStorage.getItem(`${courseKey}-completed`)) || [];
+    let lastLesson = localStorage.getItem(`${courseKey}-last`) || 0;
+
+    // Load course details
+    document.getElementById('course-title').textContent = course.title;
+    document.getElementById('course-summary').textContent = course.summary;
+
+    // Populate lessons
+    course.lessons.forEach((lesson, idx) => {
       const div = document.createElement('div');
-      div.className = 'lesson' + (completedLessons.includes(index) ? ' completed' : '');
+      div.className = 'lesson' + (completed.includes(idx) ? ' completed' : '');
       div.innerHTML = `${lesson.title} <small>(${lesson.duration})</small>`;
       div.addEventListener('click', () => {
         videoPlayer.src = lesson.video;
-        if (!completedLessons.includes(index)) {
-          completedLessons.push(index);
-          localStorage.setItem(`${courseKey}-completed`, JSON.stringify(completedLessons));
+        lastLesson = idx;
+        localStorage.setItem(`${courseKey}-last`, idx);
+        if (!completed.includes(idx)) {
+          completed.push(idx);
+          localStorage.setItem(`${courseKey}-completed`, JSON.stringify(completed));
         }
         div.classList.add('completed');
         updateProgress();
@@ -135,29 +196,22 @@
       lessonList.appendChild(div);
     });
 
-    // Load first video by default
-    if (course.lessons.length > 0) {
-      videoPlayer.src = course.lessons[0].video;
-    }
+    // Load last watched lesson
+    videoPlayer.src = course.lessons[lastLesson]?.video || course.lessons[0].video;
 
     const progressText = document.getElementById('progress-text');
     const progressBar = document.getElementById('progress-bar');
     const certBtn = document.getElementById('certificate-btn');
 
     function updateProgress() {
-      const total = course.lessons.length;
-      const completed = completedLessons.length;
-      const percent = Math.floor((completed / total) * 100);
+      const percent = Math.floor((completed.length / course.lessons.length) * 100);
       progressText.textContent = `${percent}%`;
       progressBar.style.width = `${percent}%`;
-
-      if (percent === 100) {
-        certBtn.style.display = 'inline-block';
-      }
+      if (percent === 100) certBtn.style.display = 'inline-block';
     }
 
     certBtn.addEventListener('click', () => {
-      alert('Congratulations! Your certificate is ready.');
+      alert('Congratulations! You can download your certificate now.');
       window.location.href = 'certificates.html';
     });
 
