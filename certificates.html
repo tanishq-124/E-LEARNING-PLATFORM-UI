@@ -3,13 +3,57 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Certificates - EduLearn</title>
+  <title>Your Certificates - EduLearn</title>
   <link rel="stylesheet" href="style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <style>
+    .cert-container {
+      margin: 2rem auto;
+      max-width: 900px;
+      text-align: center;
+      padding: 1rem;
+    }
+    .cert-item {
+      padding: 1rem;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      margin: 1rem 0;
+      background: #f9fafb;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .cert-item:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+    .cert-item h3 {
+      margin: 0.5rem 0;
+      color: #333;
+    }
+    .cert-actions button {
+      margin: 0.5rem;
+      padding: 0.6rem 1.2rem;
+      cursor: pointer;
+      background: #4a90e2;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      transition: background 0.3s;
+    }
+    .cert-actions button:hover {
+      background: #357ac8;
+    }
+    .no-certs {
+      font-size: 1.2rem;
+      margin-top: 2rem;
+      color: #777;
+    }
+  </style>
 </head>
 <body>
+  <!-- Header -->
   <header class="header">
     <div class="logo">EduLearn</div>
-    <input type="text" class="search-bar" placeholder="Search Study Material..." />
+    <input type="text" class="search-bar" placeholder="Search Courses..." />
     <nav class="nav-links" id="nav-menu">
       <a href="index.html">Home</a>
       <a href="courses.html">Courses</a>
@@ -17,31 +61,114 @@
       <a href="certificates.html" class="active">Certificates</a>
       <a href="profile.html">Profile</a>
       <a href="settings.html">Settings</a>
-      <a href="login.html" class="btn login-btn">Login</a>
+      <a href="#" id="logout-btn" class="btn login-btn">Logout</a>
     </nav>
     <div class="hamburger" id="hamburger">☰</div>
   </header>
 
-  <section class="featured fade-in">
+  <!-- Certificates Section -->
+  <section class="cert-container">
     <h2>Your Certificates</h2>
-    <p>Download your earned certificates here:</p>
-    <div class="course-grid">
-      <div class="course-card">
-        <h3>Python Programming Certificate</h3>
-        <button class="btn small">Download</button>
-      </div>
-      <div class="course-card">
-        <h3>Web Development Certificate</h3>
-        <button class="btn small">Download</button>
-      </div>
-    </div>
+    <div id="cert-list"></div>
+    <p id="no-certs" class="no-certs" style="display:none;">No certificates yet. Complete a course to earn one!</p>
   </section>
 
+  <!-- Footer -->
   <footer>
     <p>@ 2025 EduLearn | Developed by 
-      <a href="https://www.linkedin.com/in/tanishq-agrawal-91a505335" target="_blank">Tanishq Agrawal</a>
+      <a href="https://www.linkedin.com/in/tanishq-agrawal-91a505335" target="_blank">
+        Tanishq Agrawal
+      </a>
     </p>
   </footer>
-  <script src="script.js"></script>
+
+  <script>
+    // All available courses
+    const courses = {
+      python: "Python Programming",
+      webdev: "Web Development",
+      datasci: "Data Science",
+      uiux: "UI/UX Design",
+      react: "React.js Development",
+      ml: "Machine Learning",
+      java: "Java Backend",
+      cyber: "Cybersecurity",
+      android: "Android Development",
+      cloud: "Cloud Computing"
+    };
+
+    const certList = document.getElementById('cert-list');
+    const noCerts = document.getElementById('no-certs');
+    let earnedCerts = [];
+
+    // Check completion for each course
+    for (let key in courses) {
+      const completed = JSON.parse(localStorage.getItem(`${key}-completed`)) || [];
+      const totalLessons = getTotalLessons(key);
+
+      if (completed.length === totalLessons && totalLessons > 0) {
+        earnedCerts.push({ key, name: courses[key] });
+      }
+    }
+
+    // Show message if no certificates yet
+    if (earnedCerts.length === 0) {
+      noCerts.style.display = "block";
+    } else {
+      earnedCerts.forEach(cert => {
+        const div = document.createElement('div');
+        div.className = "cert-item";
+        div.innerHTML = `
+          <h3>${cert.name}</h3>
+          <p>Congratulations! You have completed this course.</p>
+          <div class="cert-actions">
+            <button onclick="viewCert('${cert.name}')">View Certificate</button>
+            <button onclick="downloadCert('${cert.name}')">Download PDF</button>
+          </div>
+        `;
+        certList.appendChild(div);
+      });
+    }
+
+    // Total lessons for each course (used for completion check)
+    function getTotalLessons(courseKey) {
+      const lessonCounts = {
+        python: 5,
+        webdev: 4,
+        datasci: 4,
+        uiux: 3,
+        react: 3,
+        ml: 3,
+        java: 3,
+        cyber: 3,
+        android: 3,
+        cloud: 3
+      };
+      return lessonCounts[courseKey] || 0;
+    }
+
+    // Redirect to styled certificate page
+    function viewCert(courseName) {
+      window.location.href = `view-certificate.html?course=${encodeURIComponent(courseName)}`;
+    }
+
+    // Generate and download a quick PDF certificate
+    function downloadCert(courseName) {
+      const { jsPDF } = window.jspdf;
+      const studentName = localStorage.getItem('studentName') || "Student";
+
+      const doc = new jsPDF();
+      doc.setFontSize(22);
+      doc.text("Certificate of Completion", 20, 40);
+      doc.setFontSize(16);
+      doc.text(`This certifies that ${studentName}`, 20, 60);
+      doc.text(`has successfully completed`, 20, 70);
+      doc.setFontSize(18);
+      doc.text(`${courseName}`, 20, 85);
+      doc.setFontSize(14);
+      doc.text(`Issued by EduLearn on ${new Date().toLocaleDateString()}`, 20, 110);
+      doc.save(`${courseName}-Certificate.pdf`);
+    }
+  </script>
 </body>
 </html>
