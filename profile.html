@@ -3,13 +3,61 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Profile - EduLearn</title>
+  <title>Your Profile - EduLearn</title>
   <link rel="stylesheet" href="style.css">
+  <style>
+    .profile-container {
+      max-width: 900px;
+      margin: 2rem auto;
+      padding: 2rem;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    }
+    .profile-header {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    .profile-header img {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid #4a90e2;
+    }
+    .profile-info label { display: block; margin-top: 1rem; font-weight: bold; }
+    .profile-info input, .profile-info textarea {
+      width: 100%;
+      padding: 0.6rem;
+      margin-top: 0.3rem;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+    .save-btn {
+      margin-top: 1.5rem;
+      padding: 0.8rem 1.5rem;
+      background: #4a90e2;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .save-btn:hover { background: #357ac8; }
+    .enrolled-section { margin-top: 2rem; }
+    .enrolled-section h3 { margin-bottom: 1rem; }
+    .course-list { list-style: none; padding: 0; }
+    .course-list li { margin: 0.5rem 0; }
+    .course-list a { color: #4a90e2; text-decoration: none; }
+  </style>
 </head>
 <body>
+  <!-- Header -->
   <header class="header">
     <div class="logo">EduLearn</div>
-    <input type="text" class="search-bar" placeholder="Search Study Material..." />
+    <input type="text" class="search-bar" placeholder="Search Courses..." />
     <nav class="nav-links" id="nav-menu">
       <a href="index.html">Home</a>
       <a href="courses.html">Courses</a>
@@ -17,23 +65,111 @@
       <a href="certificates.html">Certificates</a>
       <a href="profile.html" class="active">Profile</a>
       <a href="settings.html">Settings</a>
-      <a href="login.html" class="btn login-btn">Logout</a>
+      <a href="#" id="logout-btn" class="btn login-btn">Logout</a>
     </nav>
     <div class="hamburger" id="hamburger">☰</div>
   </header>
 
-  <section class="featured fade-in">
-    <h2>Your Profile</h2>
-    <p>Name: <strong>Tanishq Agrawal</strong></p>
-    <p>Email: user@example.com</p>
-    <p>Enrolled Courses: 5</p>
-  </section>
+  <!-- Profile Section -->
+  <div class="profile-container">
+    <div class="profile-header">
+      <img id="profile-pic" src="images/default-avatar.png" alt="Profile Picture">
+      <div>
+        <h2 id="display-name">Student</h2>
+        <p id="display-email">student@example.com</p>
+      </div>
+    </div>
 
+    <div class="profile-info">
+      <label for="name">Full Name:</label>
+      <input type="text" id="name" placeholder="Enter your name">
+
+      <label for="email">Email:</label>
+      <input type="email" id="email" placeholder="Enter your email">
+
+      <label for="bio">Bio:</label>
+      <textarea id="bio" rows="3" placeholder="Write something about yourself..."></textarea>
+
+      <label for="profile-img">Profile Picture:</label>
+      <input type="file" id="profile-img" accept="image/*">
+
+      <button class="save-btn" onclick="saveProfile()">Save Profile</button>
+    </div>
+
+    <div class="enrolled-section">
+      <h3>Your Enrolled Courses</h3>
+      <ul class="course-list" id="enrolled-courses"></ul>
+    </div>
+  </div>
+
+  <!-- Footer -->
   <footer>
     <p>@ 2025 EduLearn | Developed by 
-      <a href="https://www.linkedin.com/in/tanishq-agrawal-91a505335" target="_blank">Tanishq Agrawal</a>
+      <a href="https://www.linkedin.com/in/tanishq-agrawal-91a505335" target="_blank">
+        Tanishq Agrawal
+      </a>
     </p>
   </footer>
-  <script src="script.js"></script>
+
+  <script>
+    const nameInput = document.getElementById('name');
+    const emailInput = document.getElementById('email');
+    const bioInput = document.getElementById('bio');
+    const profilePic = document.getElementById('profile-pic');
+    const displayName = document.getElementById('display-name');
+    const displayEmail = document.getElementById('display-email');
+
+    // Load profile data
+    window.onload = () => {
+      nameInput.value = localStorage.getItem('studentName') || '';
+      emailInput.value = localStorage.getItem('studentEmail') || '';
+      bioInput.value = localStorage.getItem('studentBio') || '';
+      const pic = localStorage.getItem('studentPic');
+      if (pic) profilePic.src = pic;
+
+      displayName.textContent = localStorage.getItem('studentName') || 'Student';
+      displayEmail.textContent = localStorage.getItem('studentEmail') || 'student@example.com';
+
+      loadEnrolledCourses();
+    };
+
+    // Save profile data
+    function saveProfile() {
+      localStorage.setItem('studentName', nameInput.value);
+      localStorage.setItem('studentEmail', emailInput.value);
+      localStorage.setItem('studentBio', bioInput.value);
+      displayName.textContent = nameInput.value || 'Student';
+      displayEmail.textContent = emailInput.value || 'student@example.com';
+      alert('Profile saved successfully!');
+    }
+
+    // Handle profile picture upload
+    document.getElementById('profile-img').addEventListener('change', function() {
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        profilePic.src = e.target.result;
+        localStorage.setItem('studentPic', e.target.result);
+      };
+      reader.readAsDataURL(this.files[0]);
+    });
+
+    // Load enrolled courses dynamically
+    function loadEnrolledCourses() {
+      const enrolled = JSON.parse(localStorage.getItem('enrolledCourses')) || [];
+      const courseList = document.getElementById('enrolled-courses');
+      courseList.innerHTML = '';
+
+      if (enrolled.length === 0) {
+        courseList.innerHTML = '<li>No courses enrolled yet.</li>';
+        return;
+      }
+
+      enrolled.forEach(course => {
+        const li = document.createElement('li');
+        li.innerHTML = `<a href="course-detail.html?course=${course}">${course}</a>`;
+        courseList.appendChild(li);
+      });
+    }
+  </script>
 </body>
 </html>
