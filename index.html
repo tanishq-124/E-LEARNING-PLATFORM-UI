@@ -3,18 +3,15 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>EduLearn - Home</title>
+  <title>EduLearn - Learn Smarter</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <!-- Header -->
   <header class="main-header">
-    <div class="logo">
-      <h1>EduLearn</h1>
-    </div>
+    <div class="logo"><h1>EduLearn</h1></div>
     <div class="search-bar">
-      <input type="text" id="searchInput" placeholder="Search study material..." />
-      <button id="searchBtn">🔍</button>
+      <input type="text" id="homeSearch" placeholder="Search Study Material..." />
+      <button id="homeSearchBtn">Search</button>
     </div>
     <nav class="nav-links">
       <a href="index.html" class="active">Home</a>
@@ -22,54 +19,46 @@
       <a href="dashboard.html">Dashboard</a>
       <a href="certificates.html">Certificates</a>
       <a href="settings.html">Settings</a>
-      <a href="login.html">Login</a>
     </nav>
-    <div class="profile">
-      <a href="dashboard.html"><img src="images/profile.png" alt="Profile" /></a>
-    </div>
   </header>
 
-  <!-- Hero Section -->
+  <!-- Hero Banner -->
   <section class="hero-banner">
-    <div class="hero-content">
-      <h2>Learn, Grow, and Get Certified</h2>
-      <p>Interactive courses, progress tracking, and professional certificates.</p>
-      <a href="courses.html" class="btn">Browse Courses</a>
+    <h1>Learn Smarter, Learn Better</h1>
+    <p>Upskill yourself with courses, milestones, and real progress tracking.</p>
+    <button class="btn" onclick="window.location.href='courses.html'">Explore Courses</button>
+    <div class="floating-prompts">
+      <span class="prompt">🔥 Trending Courses</span>
+      <span class="prompt">🎓 Earn Certificates</span>
+      <span class="prompt">🚀 Track Progress</span>
     </div>
   </section>
 
-  <!-- Featured Courses -->
+  <!-- Featured Courses Section -->
   <section class="featured-section">
-    <h3>Popular Courses</h3>
+    <h2>Featured Courses</h2>
     <div class="course-grid">
       <div class="course-card">
-        <img src="images/webdev-banner.jpg" alt="Web Development" />
-        <h4>Web Development Mastery</h4>
-        <p>Full-stack development with hands-on projects.</p>
-        <button class="btn enroll-btn" data-course="webdev">Enroll Now</button>
+        <img src="images/webdev-banner.jpg" alt="Web Dev">
+        <h4>Web Development Bootcamp</h4>
+        <p>Learn HTML, CSS, JavaScript and build real-world websites.</p>
+        <button class="btn" onclick="window.location.href='courses.html'">View Course</button>
       </div>
       <div class="course-card">
-        <img src="images/python-banner.jpg" alt="Python" />
+        <img src="images/python-banner.jpg" alt="Python">
         <h4>Python Programming</h4>
-        <p>From basics to automation, data, and AI.</p>
-        <button class="btn enroll-btn" data-course="python">Enroll Now</button>
+        <p>Master Python fundamentals and advanced programming concepts.</p>
+        <button class="btn" onclick="window.location.href='courses.html'">View Course</button>
       </div>
       <div class="course-card">
-        <img src="images/datasci-banner.jpg" alt="Data Science" />
+        <img src="images/datasci-banner.jpg" alt="Data Science">
         <h4>Data Science Bootcamp</h4>
-        <p>Machine Learning, Analytics, and Visualization.</p>
-        <button class="btn enroll-btn" data-course="datasci">Enroll Now</button>
+        <p>Dive into data analytics, visualization, and machine learning.</p>
+        <button class="btn" onclick="window.location.href='courses.html'">View Course</button>
       </div>
     </div>
   </section>
 
-  <!-- Search Results Section -->
-  <section class="search-results" id="searchResults">
-    <h3>Study Material</h3>
-    <div id="videoContainer" class="video-grid"></div>
-  </section>
-
-  <!-- Footer -->
   <footer>
     <p>© 2025 EduLearn | Developed by 
       <a href="https://www.linkedin.com/in/tanishq-agrawal-91a505335" target="_blank">
@@ -78,6 +67,14 @@
     </p>
   </footer>
 
-  <script src="script.js"></script>
+  <script>
+    document.getElementById("homeSearchBtn").addEventListener("click", () => {
+      const query = document.getElementById("homeSearch").value.trim();
+      if (query) {
+        alert(`Search for "${query}" will show college study videos in courses page.`);
+        window.location.href = "courses.html";
+      }
+    });
+  </script>
 </body>
 </html>
