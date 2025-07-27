@@ -7,35 +7,55 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header class="main-header">
-    <div class="logo">
-      <h1>EduLearn</h1>
-    </div>
-    <nav class="nav-links">
+  <header class="header">
+    <div class="logo">EduLearn</div>
+    <input type="text" class="search-bar" placeholder="Search Study Material..." />
+    <nav class="nav-links" id="nav-menu">
       <a href="index.html">Home</a>
-      <a href="courses.html">Courses</a>
+      <a href="courses.html" class="active">Courses</a>
       <a href="dashboard.html">Dashboard</a>
       <a href="certificates.html">Certificates</a>
+      <a href="profile.html">Profile</a>
       <a href="settings.html">Settings</a>
+      <a href="login.html" class="btn login-btn">Login</a>
     </nav>
+    <div class="hamburger" id="hamburger">☰</div>
   </header>
 
-  <section class="featured-section">
-    <h3 id="courseTitle">Course Title</h3>
-    <p id="courseSummary">Course summary loads here.</p>
-    <button id="enrollNow" class="btn">Enroll Now</button>
+  <section class="course-detail fade-in">
+    <h2 id="courseTitle">Course Title</h2>
+    <img id="courseImage" src="images/webdev.jpg" class="detail-img" alt="Course">
+    <p id="courseSummary">Learn this course through step-by-step lessons, real-world projects, and interactive sessions.</p>
 
-    <div class="playlist" id="playlistContainer"></div>
+    <div class="video-container">
+      <iframe id="courseVideo" width="560" height="315" 
+        src="https://www.youtube.com/embed/9bZkp7q19f0" frameborder="0" allowfullscreen></iframe>
+    </div>
+
+    <p>Progress: <span id="progress-text">0%</span></p>
+    <div class="progress-bar"><div id="progress" style="width:0%;"></div></div>
+    <button class="btn" id="updateProgress">Mark Progress</button>
   </section>
 
   <footer>
-    <p>© 2025 EduLearn | Developed by 
-      <a href="https://www.linkedin.com/in/tanishq-agrawal-91a505335" target="_blank">
-        Tanishq Agrawal
-      </a>
+    <p>@ 2025 EduLearn | Developed by 
+      <a href="https://www.linkedin.com/in/tanishq-agrawal-91a505335" target="_blank">Tanishq Agrawal</a>
     </p>
   </footer>
-
   <script src="script.js"></script>
+  <script>
+    const bar = document.getElementById("progress");
+    const txt = document.getElementById("progress-text");
+    document.getElementById("updateProgress").addEventListener("click", () => {
+      let width = parseInt(bar.style.width) || 0;
+      if (width < 100) {
+        width += 20;
+        bar.style.width = width + "%";
+        txt.textContent = width + "%";
+      } else {
+        alert("Course Completed!");
+      }
+    });
+  </script>
 </body>
 </html>
