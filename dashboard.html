@@ -7,7 +7,6 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- Header -->
   <header class="header">
     <div class="logo">EduLearn</div>
     <input type="text" class="search-bar" placeholder="Search Study Material..." />
@@ -23,48 +22,44 @@
     <div class="hamburger" id="hamburger">☰</div>
   </header>
 
-  <!-- Dashboard Content -->
   <section class="dashboard fade-in">
     <h2>Your Dashboard</h2>
-    <p>Track your enrolled courses and progress.</p>
-
-    <div class="enrolled-courses">
+    <p>Track your progress in enrolled courses.</p>
+    <div class="course-grid">
       <div class="course-card hover-up">
         <img src="images/python.jpg" alt="Python">
         <h3>Python Programming</h3>
         <p>Progress: <span id="python-progress-text">40%</span></p>
-        <div class="progress-bar"><div id="python-progress" style="width: 40%;"></div></div>
-        <button class="btn small-btn" onclick="updateProgress('python')">Update Progress</button>
+        <div class="progress-bar"><div id="python-progress" style="width:40%;"></div></div>
+        <button class="btn small" onclick="updateProgress('python')">Update</button>
       </div>
       <div class="course-card hover-up">
         <img src="images/webdev.jpg" alt="Web Dev">
         <h3>Web Development</h3>
         <p>Progress: <span id="webdev-progress-text">60%</span></p>
-        <div class="progress-bar"><div id="webdev-progress" style="width: 60%;"></div></div>
-        <button class="btn small-btn" onclick="updateProgress('webdev')">Update Progress</button>
+        <div class="progress-bar"><div id="webdev-progress" style="width:60%;"></div></div>
+        <button class="btn small" onclick="updateProgress('webdev')">Update</button>
       </div>
     </div>
   </section>
 
-  <!-- Footer -->
   <footer>
     <p>@ 2025 EduLearn | Developed by 
-      <a href="https://www.linkedin.com/in/tanishq-agrawal-91a505335?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank">Tanishq Agrawal</a>
+      <a href="https://www.linkedin.com/in/tanishq-agrawal-91a505335" target="_blank">Tanishq Agrawal</a>
     </p>
   </footer>
-
   <script src="script.js"></script>
   <script>
     function updateProgress(course) {
       const bar = document.getElementById(`${course}-progress`);
       const text = document.getElementById(`${course}-progress-text`);
-      let width = parseInt(bar.style.width) || 0;
+      let width = parseInt(bar.style.width);
       if (width < 100) {
         width += 20;
         bar.style.width = width + "%";
         text.textContent = width + "%";
       } else {
-        alert(course.charAt(0).toUpperCase() + course.slice(1) + " Course Completed!");
+        alert(course + " Completed!");
       }
     }
   </script>
