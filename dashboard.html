@@ -3,74 +3,139 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dashboard - EduLearn</title>
+  <title>Your Dashboard - EduLearn</title>
   <link rel="stylesheet" href="style.css">
+  <style>
+    /* Full background with blur */
+    body {
+      background: url('images/dashboard-bg.jpg') no-repeat center center/cover;
+      backdrop-filter: blur(4px);
+      min-height: 100vh;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    header {
+      background: rgba(0,0,0,0.6);
+      color: white;
+      padding: 15px;
+      text-align: center;
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+
+    .dashboard-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      padding: 30px;
+    }
+
+    .course-card {
+      background: rgba(255,255,255,0.15);
+      border-radius: 15px;
+      padding: 20px;
+      color: white;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .course-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 8px 30px rgba(0,0,0,0.6);
+    }
+
+    .course-card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 12px;
+      margin-bottom: 15px;
+    }
+
+    .progress-bar {
+      background: rgba(255,255,255,0.2);
+      border-radius: 10px;
+      overflow: hidden;
+      height: 8px;
+      margin-top: 10px;
+    }
+
+    .progress-bar-fill {
+      background: #4cafef;
+      height: 100%;
+      width: 0%;
+      transition: width 1s ease;
+    }
+
+    .btn {
+      display: inline-block;
+      margin-top: 12px;
+      padding: 8px 14px;
+      background: #4cafef;
+      color: white;
+      text-decoration: none;
+      border-radius: 6px;
+      font-weight: bold;
+      transition: background 0.3s ease;
+    }
+
+    .btn:hover {
+      background: #0088cc;
+    }
+  </style>
 </head>
 <body>
-  <!-- Header -->
-  <header class="header">
-    <div class="logo">EduLearn</div>
-    <input type="text" class="search-bar" placeholder="Search Courses..." />
-    <nav class="nav-links" id="nav-menu">
-      <a href="index.html">Home</a>
-      <a href="courses.html">Courses</a>
-      <a href="dashboard.html" class="active">Dashboard</a>
-      <a href="certificates.html">Certificates</a>
-      <a href="profile.html">Profile</a>
-      <a href="settings.html">Settings</a>
-      <a href="#" id="logout-btn" class="btn login-btn">Logout</a>
-    </nav>
-    <div class="hamburger" id="hamburger">☰</div>
+  <header>
+    Welcome to Your Dashboard
   </header>
 
-  <!-- Dashboard Section -->
-  <section class="featured fade-in">
-    <h2>Welcome, <span id="user-name">Student</span>!</h2>
-    <p>Track your progress and continue your learning journey.</p>
+  <div class="dashboard-container" id="enrolled-courses">
+    <!-- Enrolled courses load here dynamically -->
+  </div>
 
-    <!-- Enrolled Courses -->
-    <div class="course-grid">
-      <div class="course-card hover-up">
-        <img src="images/python_programming.jpg" alt="Python">
-        <h3>Python Programming</h3>
-        <p>Progress: <span class="progress-text">70%</span></p>
-        <div class="progress-bar"><div class="progress" style="width:70%"></div></div>
-        <a href="course-detail.html?course=python" class="btn small">Continue</a>
-      </div>
-      <div class="course-card hover-up">
-        <img src="images/web_development.jpg" alt="Web Development">
-        <h3>Web Development</h3>
-        <p>Progress: <span class="progress-text">45%</span></p>
-        <div class="progress-bar"><div class="progress" style="width:45%"></div></div>
-        <a href="course-detail.html?course=webdev" class="btn small">Continue</a>
-      </div>
-      <div class="course-card hover-up">
-        <img src="images/data_science.jpg" alt="Data Science">
-        <h3>Data Science</h3>
-        <p>Progress: <span class="progress-text">30%</span></p>
-        <div class="progress-bar"><div class="progress" style="width:30%"></div></div>
-        <a href="course-detail.html?course=datasci" class="btn small">Continue</a>
-      </div>
-    </div>
+  <script>
+    // Example: Add some test enrolled courses
+    // localStorage.setItem("enrolledCourses", JSON.stringify(["webdev", "python", "datasci", "uiux", "react"]));
 
-    <!-- Certificates & Links -->
-    <div style="margin-top:2rem;">
-      <h3>Quick Links</h3>
-      <a href="certificates.html" class="btn">View Certificates</a>
-      <a href="profile.html" class="btn">Profile</a>
-      <a href="settings.html" class="btn">Settings</a>
-    </div>
-  </section>
+    const enrolledContainer = document.getElementById("enrolled-courses");
+    const enrolled = JSON.parse(localStorage.getItem("enrolledCourses")) || [];
 
-  <!-- Footer -->
-  <footer>
-    <p>@ 2025 EduLearn | Developed by 
-      <a href="https://www.linkedin.com/in/tanishq-agrawal-91a505335" target="_blank">
-        Tanishq Agrawal
-      </a>
-    </p>
-  </footer>
+    const allCourses = {
+      webdev: { title: "Web Development", img: "https://jessup.edu/wp-content/uploads/2024/01/Is-Web-Development-Oversaturated.jpg", progress: 40 },
+      python: { title: "Python Programming", img: "https://pythonlife.in/images/pythonlogo.png", progress: 65 },
+      datasci: { title: "Data Science", img: "https://pg-p.ctme.caltech.edu/wp-content/uploads/sites/4/2024/09/Is-Data-Science-Hard.jpg", progress: 20 },
+      uiux: { title: "UI/UX Design", img: "https://img.freepik.com/free-vector/gradient-ui-ux-elements-background_23-2149056159.jpg", progress: 15 },
+      react: { title: "React.js Development", img: "https://indiaappdeveloper.com/wp-content/uploads/2023/12/reactjs.png", progress: 10 },
+      ml: { title: "Machine Learning", img: "https://www.repsol.com/content/dam/repsol-corporate/es/energia-e-innovacion/robot-machine-learning.jpg.transform/rp-rendition-sm/image.jpg", progress: 0 },
+      java: { title: "Java Programming", img: "https://www.simplilearn.com/ice9/free_resources_article_thumb/java_backenddeveloperskills.jpg", progress: 0 },
+      cyber: { title: "Cybersecurity Basics", img: "https://www.bitlyft.com/hubfs/Cybersecurity-solutions.jpeg", progress: 0 },
+      android: { title: "Android App Development", img: "https://miro.medium.com/v2/resize:fit:750/1*aUT1pcBqSFsq-cNvKK3UHg.jpeg", progress: 0 },
+      cloud: { title: "Cloud Computing", img: "https://bernardmarr.com/img/The%205%20Biggest%20Cloud%20Computing%20Trends%20In%202021.jpg", progress: 0 }
+    };
 
-  <script src="script.js"></script>
+    if (enrolled.length === 0) {
+      enrolledContainer.innerHTML = "<p style='color:white;text-align:center;font-size:1.2rem;'>You have not enrolled in any courses yet.</p>";
+    } else {
+      enrolled.forEach(courseKey => {
+        const course = allCourses[courseKey];
+        if (!course) return;
+
+        const card = document.createElement("div");
+        card.className = "course-card";
+        card.innerHTML = `
+          <img src="${course.img}" alt="${course.title}">
+          <h3>${course.title}</h3>
+          <div class="progress-bar">
+            <div class="progress-bar-fill" style="width: ${course.progress}%;"></div>
+          </div>
+          <a href="view-certificate.html?course=${courseKey}" class="btn">View Certificate</a>
+        `;
+        enrolledContainer.appendChild(card);
+      });
+    }
+  </script>
 </body>
 </html>
