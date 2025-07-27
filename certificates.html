@@ -1,66 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Certificates - EduLearn</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header class="main-header">
-    <div class="logo"><h1>EduLearn</h1></div>
-    <nav class="nav-links">
+  <header class="header">
+    <div class="logo">EduLearn</div>
+    <input type="text" class="search-bar" placeholder="Search Study Material..." />
+    <nav class="nav-links" id="nav-menu">
       <a href="index.html">Home</a>
       <a href="courses.html">Courses</a>
       <a href="dashboard.html">Dashboard</a>
       <a href="certificates.html" class="active">Certificates</a>
+      <a href="profile.html">Profile</a>
       <a href="settings.html">Settings</a>
+      <a href="login.html" class="btn login-btn">Login</a>
     </nav>
+    <div class="hamburger" id="hamburger">☰</div>
   </header>
 
-  <section class="featured-section">
+  <section class="featured fade-in">
     <h2>Your Certificates</h2>
-    <div id="certList" class="certificate-grid"></div>
+    <p>Download your earned certificates here:</p>
+    <div class="course-grid">
+      <div class="course-card">
+        <h3>Python Programming Certificate</h3>
+        <button class="btn small">Download</button>
+      </div>
+      <div class="course-card">
+        <h3>Web Development Certificate</h3>
+        <button class="btn small">Download</button>
+      </div>
+    </div>
   </section>
 
   <footer>
-    <p>© 2025 EduLearn | Developed by 
-      <a href="https://www.linkedin.com/in/tanishq-agrawal-91a505335" target="_blank">
-        Tanishq Agrawal
-      </a>
+    <p>@ 2025 EduLearn | Developed by 
+      <a href="https://www.linkedin.com/in/tanishq-agrawal-91a505335" target="_blank">Tanishq Agrawal</a>
     </p>
   </footer>
-
-  <script>
-    const certContainer = document.getElementById("certList");
-    const enrolledCourses = JSON.parse(localStorage.getItem("enrolled_courses") || "[]");
-    const userName = localStorage.getItem("user_name") || "Student";
-
-    if (enrolledCourses.length === 0) {
-      certContainer.innerHTML = "<p>You haven't completed any courses yet.</p>";
-    } else {
-      enrolledCourses.forEach(course => {
-        if (course.progress >= 100) {
-          const cert = document.createElement("div");
-          cert.className = "certificate-card";
-          cert.innerHTML = `
-            <img src="images/certificate-template.jpg" alt="Certificate Template" />
-            <h4>${course.title}</h4>
-            <p>Issued to <strong>${userName}</strong></p>
-            <button class="btn" onclick="downloadCert('${course.title}')">Download</button>
-          `;
-          certContainer.appendChild(cert);
-        }
-      });
-      if (!certContainer.innerHTML) {
-        certContainer.innerHTML = "<p>No completed courses yet for certificates.</p>";
-      }
-    }
-
-    function downloadCert(courseTitle) {
-      alert(`Certificate for "${courseTitle}" would be downloaded as a PDF in a real version.`);
-    }
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
-
