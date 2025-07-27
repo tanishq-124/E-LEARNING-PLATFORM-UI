@@ -1,130 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Courses - EduLearn</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header class="main-header">
-    <div class="logo"><h1>EduLearn</h1></div>
-    <div class="search-bar">
-      <input type="text" id="searchInput" placeholder="Search Study Videos..." />
-      <button id="searchBtn">Search</button>
-    </div>
-    <nav class="nav-links">
+  <!-- Header -->
+  <header class="header">
+    <div class="logo">EduLearn</div>
+    <input type="text" class="search-bar" placeholder="Search Study Material..." />
+    <nav class="nav-links" id="nav-menu">
       <a href="index.html">Home</a>
       <a href="courses.html" class="active">Courses</a>
       <a href="dashboard.html">Dashboard</a>
       <a href="certificates.html">Certificates</a>
+      <a href="profile.html">Profile</a>
       <a href="settings.html">Settings</a>
+      <a href="login.html" class="btn login-btn">Login</a>
     </nav>
+    <div class="hamburger" id="hamburger">☰</div>
   </header>
 
-  <section class="featured-section">
-    <h2>Explore Our Courses</h2>
-    <div class="course-grid" id="courseList"></div>
+  <!-- Courses Section -->
+  <section class="featured fade-in">
+    <h2>All Available Courses</h2>
+    <div class="course-grid">
+      <!-- Same cards but extended -->
+      <div class="course-card hover-up">
+        <img src="images/webdev.jpg" alt="Web Development">
+        <h3>Web Development Bootcamp</h3>
+        <p>Build interactive websites with HTML, CSS, JS.</p>
+        <a href="course-detail.html?course=webdev" class="btn small">View</a>
+      </div>
+      <div class="course-card hover-up">
+        <img src="images/python.jpg" alt="Python">
+        <h3>Python Programming</h3>
+        <p>Master Python, from basics to real-world projects.</p>
+        <a href="course-detail.html?course=python" class="btn small">View</a>
+      </div>
+      <div class="course-card hover-up">
+        <img src="images/datasci.jpg" alt="Data Science">
+        <h3>Data Science Bootcamp</h3>
+        <p>Data analysis, visualization, and ML made easy.</p>
+        <a href="course-detail.html?course=datasci" class="btn small">View</a>
+      </div>
+      <div class="course-card hover-up">
+        <img src="images/uiux.jpg" alt="UI/UX">
+        <h3>UI/UX Design</h3>
+        <p>Design user-friendly digital products and apps.</p>
+        <a href="course-detail.html?course=uiux" class="btn small">View</a>
+      </div>
+      <div class="course-card hover-up">
+        <img src="images/react.jpg" alt="React">
+        <h3>React.js Development</h3>
+        <p>Learn React to build modern web applications.</p>
+        <a href="course-detail.html?course=react" class="btn small">View</a>
+      </div>
+    </div>
   </section>
 
-  <!-- Search Results Section -->
-  <section class="featured-section" id="searchResultsSection" style="display:none;">
-    <h3>Study Videos</h3>
-    <div class="video-grid" id="videoResults"></div>
-  </section>
-
+  <!-- Footer -->
   <footer>
-    <p>© 2025 EduLearn | Developed by 
-      <a href="https://www.linkedin.com/in/tanishq-agrawal-91a505335" target="_blank">
-        Tanishq Agrawal
-      </a>
+    <p>@ 2025 EduLearn | Developed by 
+      <a href="https://www.linkedin.com/in/tanishq-agrawal-91a505335?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank">Tanishq Agrawal</a>
     </p>
   </footer>
 
-  <script>
-    const courses = [
-      {
-        title: "Web Development Bootcamp",
-        image: "images/webdev-banner.jpg",
-        summary: "Learn HTML, CSS, JS, and build websites from scratch.",
-      },
-      {
-        title: "Python Programming",
-        image: "images/python-banner.jpg",
-        summary: "Master Python from basics to advanced with projects.",
-      },
-      {
-        title: "Data Science Bootcamp",
-        image: "images/datasci-banner.jpg",
-        summary: "Learn data analysis, visualization, and machine learning.",
-      },
-      {
-        title: "Machine Learning",
-        image: "images/ml-banner.jpg",
-        summary: "Understand algorithms, models, and AI applications.",
-      },
-      {
-        title: "AI Fundamentals",
-        image: "images/ai-banner.jpg",
-        summary: "Introduction to artificial intelligence and deep learning.",
-      },
-      {
-        title: "Cloud Computing",
-        image: "images/cloud-banner.jpg",
-        summary: "Learn AWS, Azure, and Google Cloud for developers.",
-      },
-      {
-        title: "Cybersecurity Essentials",
-        image: "images/cyber-banner.jpg",
-        summary: "Protect systems, networks, and understand security tools.",
-      },
-      {
-        title: "Full-Stack Developer Roadmap",
-        image: "images/fullstack-banner.jpg",
-        summary: "Complete guide to becoming a full-stack engineer.",
-      }
-    ];
-
-    const courseList = document.getElementById("courseList");
-    courses.forEach(course => {
-      const card = document.createElement("div");
-      card.className = "course-card";
-      card.innerHTML = `
-        <img src="${course.image}" alt="${course.title}">
-        <h4>${course.title}</h4>
-        <p>${course.summary}</p>
-        <button class="btn enrollBtn">Enroll</button>
-      `;
-      courseList.appendChild(card);
-
-      card.querySelector(".enrollBtn").addEventListener("click", () => {
-        enrollCourse(course);
-      });
-    });
-
-    function enrollCourse(course) {
-      let enrolled = JSON.parse(localStorage.getItem("enrolled_courses") || "[]");
-      if (!enrolled.find(c => c.title === course.title)) {
-        enrolled.push({ ...course, progress: 0 });
-        localStorage.setItem("enrolled_courses", JSON.stringify(enrolled));
-        alert(`Enrolled in ${course.title}`);
-      } else {
-        alert(`Already enrolled in ${course.title}`);
-      }
-    }
-
-    // Dummy YouTube Search (Simulated)
-    document.getElementById("searchBtn").addEventListener("click", () => {
-      const query = document.getElementById("searchInput").value.trim();
-      const resultsSection = document.getElementById("searchResultsSection");
-      const videoResults = document.getElementById("videoResults");
-      if (!query) return alert("Please enter a topic to search.");
-      resultsSection.style.display = "block";
-      videoResults.innerHTML = `
-        <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" allowfullscreen></iframe>
-        <p>Sample video for "${query}" (study-related)</p>
-      `;
-    });
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
