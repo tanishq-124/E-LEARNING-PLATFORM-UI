@@ -3,59 +3,165 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Course Detail - EduLearn</title>
+  <title>Course Details - EduLearn</title>
   <link rel="stylesheet" href="style.css">
+  <style>
+    .course-container { display: flex; flex-wrap: wrap; gap: 2rem; margin-top: 2rem; }
+    .video-section { flex: 2; min-width: 300px; }
+    .playlist-section { flex: 1; min-width: 250px; background: #f3f4f6; padding: 1rem; border-radius: 8px; }
+    .lesson { padding: 0.5rem; cursor: pointer; border-bottom: 1px solid #ddd; transition: background 0.3s; }
+    .lesson:hover { background: #e5e7eb; }
+    .lesson.completed { color: green; font-weight: bold; }
+    .certificate-btn { display: none; margin-top: 1rem; }
+  </style>
 </head>
 <body>
+  <!-- Header -->
   <header class="header">
     <div class="logo">EduLearn</div>
-    <input type="text" class="search-bar" placeholder="Search Study Material..." />
+    <input type="text" class="search-bar" placeholder="Search Courses..." />
     <nav class="nav-links" id="nav-menu">
       <a href="index.html">Home</a>
-      <a href="courses.html" class="active">Courses</a>
+      <a href="courses.html">Courses</a>
       <a href="dashboard.html">Dashboard</a>
       <a href="certificates.html">Certificates</a>
       <a href="profile.html">Profile</a>
       <a href="settings.html">Settings</a>
-      <a href="login.html" class="btn login-btn">Login</a>
+      <a href="#" id="logout-btn" class="btn login-btn">Logout</a>
     </nav>
     <div class="hamburger" id="hamburger">☰</div>
   </header>
 
-  <section class="course-detail fade-in">
-    <h2 id="courseTitle">Course Title</h2>
-    <img id="courseImage" src="images/webdev.jpg" class="detail-img" alt="Course">
-    <p id="courseSummary">Learn this course through step-by-step lessons, real-world projects, and interactive sessions.</p>
+  <!-- Course Content -->
+  <section class="featured fade-in">
+    <h2 id="course-title">Course Title</h2>
+    <p id="course-summary">Learn all about this topic through structured lessons.</p>
 
-    <div class="video-container">
-      <iframe id="courseVideo" width="560" height="315" 
-        src="https://www.youtube.com/embed/9bZkp7q19f0" frameborder="0" allowfullscreen></iframe>
+    <div class="course-container">
+      <!-- Video Player -->
+      <div class="video-section">
+        <iframe id="course-video" width="100%" height="400" 
+          src="" frameborder="0" allowfullscreen></iframe>
+
+        <!-- Progress -->
+        <div style="margin-top:1rem;">
+          <p>Progress: <span id="progress-text">0%</span></p>
+          <div class="progress-bar"><div class="progress" id="progress-bar" style="width:0%"></div></div>
+          <button id="certificate-btn" class="btn certificate-btn">Download Certificate</button>
+        </div>
+      </div>
+
+      <!-- Playlist -->
+      <div class="playlist-section">
+        <h3>Lesson Playlist</h3>
+        <div id="lesson-list"></div>
+      </div>
     </div>
-
-    <p>Progress: <span id="progress-text">0%</span></p>
-    <div class="progress-bar"><div id="progress" style="width:0%;"></div></div>
-    <button class="btn" id="updateProgress">Mark Progress</button>
   </section>
 
+  <!-- Footer -->
   <footer>
     <p>@ 2025 EduLearn | Developed by 
-      <a href="https://www.linkedin.com/in/tanishq-agrawal-91a505335" target="_blank">Tanishq Agrawal</a>
+      <a href="https://www.linkedin.com/in/tanishq-agrawal-91a505335" target="_blank">
+        Tanishq Agrawal
+      </a>
     </p>
   </footer>
-  <script src="script.js"></script>
+
   <script>
-    const bar = document.getElementById("progress");
-    const txt = document.getElementById("progress-text");
-    document.getElementById("updateProgress").addEventListener("click", () => {
-      let width = parseInt(bar.style.width) || 0;
-      if (width < 100) {
-        width += 20;
-        bar.style.width = width + "%";
-        txt.textContent = width + "%";
-      } else {
-        alert("Course Completed!");
+    // Course data with sample lessons
+    const courseData = {
+      python: {
+        title: "Python Programming",
+        summary: "Master Python from basics to automation and projects.",
+        lessons: [
+          { title: "Introduction to Python", video: "https://www.youtube.com/embed/kqtD5dpn9C8", duration: "5:20" },
+          { title: "Data Types & Variables", video: "https://www.youtube.com/embed/_uQrJ0TkZlc", duration: "8:12" },
+          { title: "Loops and Functions", video: "https://www.youtube.com/embed/apACNr7DC_s", duration: "7:30" },
+          { title: "Modules and Packages", video: "https://www.youtube.com/embed/1Lfv5tUGsn8", duration: "6:15" },
+          { title: "Project: Calculator", video: "https://www.youtube.com/embed/3Kq1MIfTWCE", duration: "9:50" }
+        ]
+      },
+      webdev: {
+        title: "Web Development",
+        summary: "Learn HTML, CSS, JavaScript, and build real websites.",
+        lessons: [
+          { title: "HTML Basics", video: "https://www.youtube.com/embed/pQN-pnXPaVg", duration: "6:30" },
+          { title: "CSS Styling", video: "https://www.youtube.com/embed/1Rs2ND1ryYc", duration: "7:40" },
+          { title: "JavaScript Fundamentals", video: "https://www.youtube.com/embed/W6NZfCO5SIk", duration: "8:10" },
+          { title: "DOM Manipulation", video: "https://www.youtube.com/embed/0ik6X4DJKCc", duration: "9:00" }
+        ]
+      },
+      datasci: {
+        title: "Data Science",
+        summary: "Learn analytics, visualization, and machine learning.",
+        lessons: [
+          { title: "Intro to Data Science", video: "https://www.youtube.com/embed/ua-CiDNNj30", duration: "5:45" },
+          { title: "Data Cleaning", video: "https://www.youtube.com/embed/5jYcB2pZg_I", duration: "6:20" },
+          { title: "Pandas Basics", video: "https://www.youtube.com/embed/vmEHCJofslg", duration: "7:55" }
+        ]
       }
+      // You can add similar lesson arrays for other 7 courses (React, ML, etc.)
+    };
+
+    // Get selected course from URL
+    const params = new URLSearchParams(window.location.search);
+    const courseKey = params.get('course') || 'python';
+    const course = courseData[courseKey];
+
+    if (course) {
+      document.getElementById('course-title').textContent = course.title;
+      document.getElementById('course-summary').textContent = course.summary;
+    }
+
+    const videoPlayer = document.getElementById('course-video');
+    const lessonList = document.getElementById('lesson-list');
+    let completedLessons = JSON.parse(localStorage.getItem(`${courseKey}-completed`)) || [];
+    
+    // Load lessons into playlist
+    course.lessons.forEach((lesson, index) => {
+      const div = document.createElement('div');
+      div.className = 'lesson' + (completedLessons.includes(index) ? ' completed' : '');
+      div.innerHTML = `${lesson.title} <small>(${lesson.duration})</small>`;
+      div.addEventListener('click', () => {
+        videoPlayer.src = lesson.video;
+        if (!completedLessons.includes(index)) {
+          completedLessons.push(index);
+          localStorage.setItem(`${courseKey}-completed`, JSON.stringify(completedLessons));
+        }
+        div.classList.add('completed');
+        updateProgress();
+      });
+      lessonList.appendChild(div);
     });
+
+    // Load first video by default
+    if (course.lessons.length > 0) {
+      videoPlayer.src = course.lessons[0].video;
+    }
+
+    const progressText = document.getElementById('progress-text');
+    const progressBar = document.getElementById('progress-bar');
+    const certBtn = document.getElementById('certificate-btn');
+
+    function updateProgress() {
+      const total = course.lessons.length;
+      const completed = completedLessons.length;
+      const percent = Math.floor((completed / total) * 100);
+      progressText.textContent = `${percent}%`;
+      progressBar.style.width = `${percent}%`;
+
+      if (percent === 100) {
+        certBtn.style.display = 'inline-block';
+      }
+    }
+
+    certBtn.addEventListener('click', () => {
+      alert('Congratulations! Your certificate is ready.');
+      window.location.href = 'certificates.html';
+    });
+
+    updateProgress();
   </script>
 </body>
 </html>
