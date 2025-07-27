@@ -19,8 +19,8 @@
   </header>
 
   <section class="featured-section">
-    <h3>Your Certificates</h3>
-    <div id="certificateContainer" class="course-grid"></div>
+    <h2>Your Certificates</h2>
+    <div id="certList" class="certificate-grid"></div>
   </section>
 
   <footer>
@@ -31,7 +31,36 @@
     </p>
   </footer>
 
-  <script src="script.js"></script>
+  <script>
+    const certContainer = document.getElementById("certList");
+    const enrolledCourses = JSON.parse(localStorage.getItem("enrolled_courses") || "[]");
+    const userName = localStorage.getItem("user_name") || "Student";
+
+    if (enrolledCourses.length === 0) {
+      certContainer.innerHTML = "<p>You haven't completed any courses yet.</p>";
+    } else {
+      enrolledCourses.forEach(course => {
+        if (course.progress >= 100) {
+          const cert = document.createElement("div");
+          cert.className = "certificate-card";
+          cert.innerHTML = `
+            <img src="images/certificate-template.jpg" alt="Certificate Template" />
+            <h4>${course.title}</h4>
+            <p>Issued to <strong>${userName}</strong></p>
+            <button class="btn" onclick="downloadCert('${course.title}')">Download</button>
+          `;
+          certContainer.appendChild(cert);
+        }
+      });
+      if (!certContainer.innerHTML) {
+        certContainer.innerHTML = "<p>No completed courses yet for certificates.</p>";
+      }
+    }
+
+    function downloadCert(courseTitle) {
+      alert(`Certificate for "${courseTitle}" would be downloaded as a PDF in a real version.`);
+    }
+  </script>
 </body>
 </html>
 
