@@ -1,87 +1,72 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dashboard - EduLearn</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header class="main-header">
-    <div class="logo"><h1>EduLearn</h1></div>
-    <nav class="nav-links">
+  <!-- Header -->
+  <header class="header">
+    <div class="logo">EduLearn</div>
+    <input type="text" class="search-bar" placeholder="Search Study Material..." />
+    <nav class="nav-links" id="nav-menu">
       <a href="index.html">Home</a>
       <a href="courses.html">Courses</a>
       <a href="dashboard.html" class="active">Dashboard</a>
       <a href="certificates.html">Certificates</a>
+      <a href="profile.html">Profile</a>
       <a href="settings.html">Settings</a>
+      <a href="login.html" class="btn login-btn">Logout</a>
     </nav>
+    <div class="hamburger" id="hamburger">☰</div>
   </header>
 
-  <section class="featured-section">
-    <!-- User Profile -->
-    <div class="profile-card" id="profileSection">
-      <img id="profilePhoto" src="images/profile.png" alt="Profile" class="profile-pic" />
-      <h3 id="profileName">Student</h3>
-      <p id="profileEmail">student@example.com</p>
-      <p id="profileDob">Date of Birth: --</p>
-    </div>
+  <!-- Dashboard Content -->
+  <section class="dashboard fade-in">
+    <h2>Your Dashboard</h2>
+    <p>Track your enrolled courses and progress.</p>
 
-    <!-- Enrolled Courses -->
-    <h3>Your Enrolled Courses</h3>
-    <div id="dashboardProgress" class="course-grid"></div>
-
-    <!-- Daily Milestone Tracker -->
-    <div class="milestone-section">
-      <h4>Daily Milestones</h4>
-      <p>Complete 1 lesson per day to stay on track!</p>
-      <button id="markMilestoneBtn" class="btn">Mark Today as Completed</button>
-      <p id="milestoneStatus"></p>
+    <div class="enrolled-courses">
+      <div class="course-card hover-up">
+        <img src="images/python.jpg" alt="Python">
+        <h3>Python Programming</h3>
+        <p>Progress: <span id="python-progress-text">40%</span></p>
+        <div class="progress-bar"><div id="python-progress" style="width: 40%;"></div></div>
+        <button class="btn small-btn" onclick="updateProgress('python')">Update Progress</button>
+      </div>
+      <div class="course-card hover-up">
+        <img src="images/webdev.jpg" alt="Web Dev">
+        <h3>Web Development</h3>
+        <p>Progress: <span id="webdev-progress-text">60%</span></p>
+        <div class="progress-bar"><div id="webdev-progress" style="width: 60%;"></div></div>
+        <button class="btn small-btn" onclick="updateProgress('webdev')">Update Progress</button>
+      </div>
     </div>
   </section>
 
+  <!-- Footer -->
   <footer>
-    <p>© 2025 EduLearn | Developed by 
-      <a href="https://www.linkedin.com/in/tanishq-agrawal-91a505335" target="_blank">
-        Tanishq Agrawal
-      </a>
+    <p>@ 2025 EduLearn | Developed by 
+      <a href="https://www.linkedin.com/in/tanishq-agrawal-91a505335?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank">Tanishq Agrawal</a>
     </p>
   </footer>
 
+  <script src="script.js"></script>
   <script>
-    // Load user profile details
-    const name = localStorage.getItem("user_name") || "Student";
-    const email = localStorage.getItem("user_email") || "student@example.com";
-    const dob = localStorage.getItem("user_dob") || "--";
-    const photo = localStorage.getItem("user_photo");
-
-    document.getElementById("profileName").innerText = name;
-    document.getElementById("profileEmail").innerText = email;
-    document.getElementById("profileDob").innerText = "Date of Birth: " + dob;
-    if (photo) document.getElementById("profilePhoto").src = photo;
-
-    // Load enrolled courses (from localStorage)
-    const progressContainer = document.getElementById("dashboardProgress");
-    const enrolledCourses = JSON.parse(localStorage.getItem("enrolled_courses") || "[]");
-
-    if (enrolledCourses.length === 0) {
-      progressContainer.innerHTML = "<p>You haven't enrolled in any courses yet.</p>";
-    } else {
-      enrolledCourses.forEach(course => {
-        const card = document.createElement("div");
-        card.className = "course-card";
-        card.innerHTML = `
-          <img src="${course.image}" alt="${course.title}" />
-          <h4>${course.title}</h4>
-          <p>${course.summary}</p>
-          <div class="progress-bar">
-            <div style="width: ${course.progress || 0}%"></div>
-          </div>
-          <p>${course.progress || 0}% Completed</p>
-        `;
-        progressContainer.appendChild(card);
-      });
+    function updateProgress(course) {
+      const bar = document.getElementById(`${course}-progress`);
+      const text = document.getElementById(`${course}-progress-text`);
+      let width = parseInt(bar.style.width) || 0;
+      if (width < 100) {
+        width += 20;
+        bar.style.width = width + "%";
+        text.textContent = width + "%";
+      } else {
+        alert(course.charAt(0).toUpperCase() + course.slice(1) + " Course Completed!");
+      }
     }
-
-    // Milestone Tracker
-    const milestoneBtn = document.get
+  </script>
+</body>
+</html>
