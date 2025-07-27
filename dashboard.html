@@ -7,9 +7,10 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <!-- Header -->
   <header class="header">
     <div class="logo">EduLearn</div>
-    <input type="text" class="search-bar" placeholder="Search Study Material..." />
+    <input type="text" class="search-bar" placeholder="Search Courses..." />
     <nav class="nav-links" id="nav-menu">
       <a href="index.html">Home</a>
       <a href="courses.html">Courses</a>
@@ -17,51 +18,59 @@
       <a href="certificates.html">Certificates</a>
       <a href="profile.html">Profile</a>
       <a href="settings.html">Settings</a>
-      <a href="login.html" class="btn login-btn">Logout</a>
+      <a href="#" id="logout-btn" class="btn login-btn">Logout</a>
     </nav>
     <div class="hamburger" id="hamburger">☰</div>
   </header>
 
-  <section class="dashboard fade-in">
-    <h2>Your Dashboard</h2>
-    <p>Track your progress in enrolled courses.</p>
+  <!-- Dashboard Section -->
+  <section class="featured fade-in">
+    <h2>Welcome, <span id="user-name">Student</span>!</h2>
+    <p>Track your progress and continue your learning journey.</p>
+
+    <!-- Enrolled Courses -->
     <div class="course-grid">
       <div class="course-card hover-up">
-        <img src="images/python.jpg" alt="Python">
+        <img src="images/python_programming.jpg" alt="Python">
         <h3>Python Programming</h3>
-        <p>Progress: <span id="python-progress-text">40%</span></p>
-        <div class="progress-bar"><div id="python-progress" style="width:40%;"></div></div>
-        <button class="btn small" onclick="updateProgress('python')">Update</button>
+        <p>Progress: <span class="progress-text">70%</span></p>
+        <div class="progress-bar"><div class="progress" style="width:70%"></div></div>
+        <a href="course-detail.html?course=python" class="btn small">Continue</a>
       </div>
       <div class="course-card hover-up">
-        <img src="images/webdev.jpg" alt="Web Dev">
+        <img src="images/web_development.jpg" alt="Web Development">
         <h3>Web Development</h3>
-        <p>Progress: <span id="webdev-progress-text">60%</span></p>
-        <div class="progress-bar"><div id="webdev-progress" style="width:60%;"></div></div>
-        <button class="btn small" onclick="updateProgress('webdev')">Update</button>
+        <p>Progress: <span class="progress-text">45%</span></p>
+        <div class="progress-bar"><div class="progress" style="width:45%"></div></div>
+        <a href="course-detail.html?course=webdev" class="btn small">Continue</a>
       </div>
+      <div class="course-card hover-up">
+        <img src="images/data_science.jpg" alt="Data Science">
+        <h3>Data Science</h3>
+        <p>Progress: <span class="progress-text">30%</span></p>
+        <div class="progress-bar"><div class="progress" style="width:30%"></div></div>
+        <a href="course-detail.html?course=datasci" class="btn small">Continue</a>
+      </div>
+    </div>
+
+    <!-- Certificates & Links -->
+    <div style="margin-top:2rem;">
+      <h3>Quick Links</h3>
+      <a href="certificates.html" class="btn">View Certificates</a>
+      <a href="profile.html" class="btn">Profile</a>
+      <a href="settings.html" class="btn">Settings</a>
     </div>
   </section>
 
+  <!-- Footer -->
   <footer>
     <p>@ 2025 EduLearn | Developed by 
-      <a href="https://www.linkedin.com/in/tanishq-agrawal-91a505335" target="_blank">Tanishq Agrawal</a>
+      <a href="https://www.linkedin.com/in/tanishq-agrawal-91a505335" target="_blank">
+        Tanishq Agrawal
+      </a>
     </p>
   </footer>
+
   <script src="script.js"></script>
-  <script>
-    function updateProgress(course) {
-      const bar = document.getElementById(`${course}-progress`);
-      const text = document.getElementById(`${course}-progress-text`);
-      let width = parseInt(bar.style.width);
-      if (width < 100) {
-        width += 20;
-        bar.style.width = width + "%";
-        text.textContent = width + "%";
-      } else {
-        alert(course + " Completed!");
-      }
-    }
-  </script>
 </body>
 </html>
