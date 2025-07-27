@@ -5,6 +5,58 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Settings - EduLearn</title>
   <link rel="stylesheet" href="style.css" />
+  <style>
+    .settings-section {
+      max-width: 600px;
+      margin: 2rem auto;
+      background: #fff;
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+    .settings-section h2 {
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+    .settings-section label {
+      display: block;
+      margin-top: 1rem;
+      font-weight: 500;
+    }
+    .settings-section input {
+      width: 100%;
+      padding: 10px;
+      margin-top: 0.5rem;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    .settings-section button {
+      margin-top: 1.5rem;
+      background: #1a1a2e;
+      color: white;
+      padding: 12px;
+      width: 100%;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    .settings-section button:hover {
+      background: #333;
+    }
+    .theme-toggle {
+      margin-top: 1rem;
+      text-align: center;
+    }
+    .theme-toggle button {
+      background: #ffd369;
+      color: #1a1a2e;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+  </style>
 </head>
 <body>
   <header class="main-header">
@@ -18,15 +70,21 @@
     </nav>
   </header>
 
-  <section class="featured-section">
-    <h3>User Settings</h3>
-    <div class="settings-container">
-      <label>Name:</label>
-      <input type="text" id="userName" placeholder="Your Name" />
-      <button id="saveNameBtn" class="btn">Save</button>
+  <section class="settings-section">
+    <h2>Profile Settings</h2>
+    <label>Full Name</label>
+    <input type="text" id="nameField" />
+    <label>Email</label>
+    <input type="email" id="emailField" />
+    <label>Date of Birth</label>
+    <input type="date" id="dobField" />
+    <label>Profile Photo</label>
+    <input type="file" id="photoField" accept="image/*" />
+    <button id="saveProfileBtn">Save Profile</button>
 
-      <button id="toggleThemeBtn" class="btn">Toggle Dark Mode</button>
-      <button id="resetProgressBtn" class="btn">Reset All Progress</button>
+    <div class="theme-toggle">
+      <h3>Theme</h3>
+      <button id="toggleThemeBtn">Toggle Dark/Light Mode</button>
     </div>
   </section>
 
@@ -38,7 +96,46 @@
     </p>
   </footer>
 
-  <script src="script.js"></script>
+  <script>
+    const nameField = document.getElementById("nameField");
+    const emailField = document.getElementById("emailField");
+    const dobField = document.getElementById("dobField");
+    const photoField = document.getElementById("photoField");
+
+    // Load saved profile
+    nameField.value = localStorage.getItem("user_name") || "";
+    emailField.value = localStorage.getItem("user_email") || "";
+    dobField.value = localStorage.getItem("user_dob") || "";
+
+    // Save profile
+    document.getElementById("saveProfileBtn").addEventListener("click", () => {
+      localStorage.setItem("user_name", nameField.value.trim());
+      localStorage.setItem("user_email", emailField.value.trim());
+      localStorage.setItem("user_dob", dobField.value);
+
+      if (photoField.files[0]) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          localStorage.setItem("user_photo", e.target.result);
+        };
+        reader.readAsDataURL(photoField.files[0]);
+      }
+
+      alert("Profile updated successfully!");
+    });
+
+    // Theme Toggle
+    const toggleBtn = document.getElementById("toggleThemeBtn");
+    toggleBtn.addEventListener("click", () => {
+      document.body.classList.toggle("dark-mode");
+      if (document.body.classList.contains("dark-mode")) {
+        document.body.style.background = "#1a1a2e";
+        document.body.style.color = "#f9f9f9";
+      } else {
+        document.body.style.background = "#f9f9f9";
+        document.body.style.color = "#333";
+      }
+    });
+  </script>
 </body>
 </html>
-
