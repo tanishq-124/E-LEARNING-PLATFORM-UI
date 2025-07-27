@@ -5,6 +5,45 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>EduLearn - Learn Smarter</title>
   <link rel="stylesheet" href="style.css" />
+  <style>
+    /* Extra styles for prompts */
+    .floating-prompts {
+      position: absolute;
+      top: 20%;
+      right: 5%;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      z-index: 10;
+    }
+    .floating-prompts .prompt {
+      background: rgba(255, 165, 0, 0.9);
+      color: #fff;
+      padding: 10px 15px;
+      border-radius: 20px;
+      font-weight: bold;
+      box-shadow: 0 0 15px rgba(255, 165, 0, 0.6);
+      animation: float 4s ease-in-out infinite;
+    }
+    .floating-prompts .prompt:nth-child(2) {
+      background: rgba(0, 191, 255, 0.9);
+      box-shadow: 0 0 15px rgba(0, 191, 255, 0.6);
+      animation-delay: 1s;
+    }
+    .floating-prompts .prompt:nth-child(3) {
+      background: rgba(50, 205, 50, 0.9);
+      box-shadow: 0 0 15px rgba(50, 205, 50, 0.6);
+      animation-delay: 2s;
+    }
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-15px);
+      }
+    }
+  </style>
 </head>
 <body>
   <header class="main-header">
@@ -23,10 +62,12 @@
   </header>
 
   <!-- Hero Banner -->
-  <section class="hero-banner">
+  <section class="hero-banner" style="position: relative;">
     <h1>Learn Smarter, Learn Better</h1>
     <p>Upskill yourself with courses, milestones, and real progress tracking.</p>
     <button class="btn" onclick="window.location.href='courses.html'">Explore Courses</button>
+
+    <!-- Floating Prompts (Now Visible) -->
     <div class="floating-prompts">
       <span class="prompt">🔥 Trending Courses</span>
       <span class="prompt">🎓 Earn Certificates</span>
