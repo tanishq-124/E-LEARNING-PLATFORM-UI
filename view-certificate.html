@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>View Certificate - EduLearn</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <style>
+    body {
+      background: #f9fafb;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      text-align: center;
+    }
+    .cert-container {
+      max-width: 900px;
+      background: #fff;
+      padding: 1.5rem;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+    .cert-container img {
+      max-width: 100%;
+      border: 2px solid #ddd;
+      border-radius: 8px;
+    }
+    button {
+      margin-top: 1.5rem;
+      background: #4a90e2;
+      color: white;
+      padding: 0.7rem 1.5rem;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="cert-container">
+    <h2>Your Certificate</h2>
+    <p id="cert-info"></p>
+    <img id="cert-preview" alt="Certificate Preview">
+    <button id="download-btn">Download PDF</button>
+  </div>
+
+  <script>
+    const template = 'https://i.ibb.co/TSNZhwS/White-Gold-Elegant-Modern-Certificate-of-Participation-1.jpg';
+    const params = new URLSearchParams(window.location.search);
+    const course = params.get('course') || 'Unknown Course';
+    const student = localStorage.getItem('profileName') || 'Student';
+    const date = params.get('date') || new Date().toLocaleDateString();
+
+    document.getElementById('cert-preview').src = template;
+    document.getElementById('cert-info').textContent = `${student} - ${course} (Completed on ${date})`;
+
+    document.getElementById('download-btn').addEventListener('click', () => {
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF('l', 'mm', 'a4');
+      const img = new Image();
+      img.crossOrigin = 'anonymous';
+      img.onload = () => {
+        doc.addImage(img, 'PNG', 0, 0, 297, 210);
+        doc.setFontSize(24);
+        doc.text(student, 148, 120, { align: 'center' });
+        doc.setFontSize(18);
+        doc.text(`has successfully completed`, 148, 135, { align: 'center' });
+        doc.setFontSize(20);
+        doc.text(course, 148, 150, { align: 'center' });
+        doc.setFontSize(14);
+        doc.text(`Issued by: Tanishq Agrawal`, 148, 165, { align: 'center' });
+        doc.setFontSize(12);
+        doc.text(`Date: ${date}`, 148, 180, { align: 'center' });
+        doc.save(`${course}_Certificate.pdf`);
+      };
+      img.src = template;
+    });
+  </script>
+</body>
+</html>
